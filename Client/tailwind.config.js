@@ -5,6 +5,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'hero': "url('../public/images/home-image.jpeg')"
+      },
+      fontFamily: {
+        'sans': ['Avenir', 'Arial', 'sans-serif']
+      },
       colors: {
         'theme-orange':'#E3934C',
         'theme-purple':'#9485CA',

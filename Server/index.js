@@ -16,10 +16,23 @@ const db = mysql.createConnection({
 
 module.exports = db;
 
-app.post('/signup', (req, res) => {
+app.post('/signin', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     db.query("INSERT INTO users (username, password) VALUES (?, ?)", [username, password], (err, result) => {
+        if (err)
+            console.log(err);
+        else
+            res.send({username: username});
+    })
+})
+
+app.post('/register', (req, res) => {
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const username = req.body.username;
+    const password = req.body.password;
+    db.query("INSERT INTO users (firstName, lastName, username, password) VALUES (?, ?, ?, ?)", [firstName, lastName, username, password], (err, result) => {
         if (err)
             console.log(err);
         else
