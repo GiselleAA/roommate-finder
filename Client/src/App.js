@@ -1,68 +1,79 @@
 import React from 'react'
-import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+import CollegeSearch from './components/collegeSearch';
+import { Link } from 'react-router-dom';
 
 function App() {
-  const colleges = [ 
-    { id: 0, name: 'California State University, Bakersfield' },
-    { id: 1, name: 'California State University Channel Islands' },
-    { id: 2, name: 'California State University, Chico' },
-    { id: 3, name: 'California State University, Dominguez Hills' },
-    { id: 4, name: 'California State University, East Bay' },
-    { id: 5, name: 'California State University, Fresno' },
-    { id: 6, name: 'California State University, Fullerton' },
-    { id: 7, name: 'Humboldt State University' },
-    { id: 8, name: 'California State University, Long Beach' },
-    { id: 9, name: 'California State University, Los Angeles' },
-    { id: 10, name: 'California State University Maritime Academy' },
-    { id: 11, name: 'California State University, Monterey Bay' },
-    { id: 12, name: 'California State University, Northridge' },
-    { id: 13, name: 'California State Polytechnic University, Pomona' },
-    { id: 14, name: 'California State University, Sacramento' },
-    { id: 15, name: 'California State University, San Bernardino' },
-    { id: 16, name: 'San Diego State University' },
-    { id: 17, name: 'San Francisco State University' },
-    { id: 18, name: 'San José State University' },
-    { id: 19, name: 'California Polytechnic State University, San Luis Obispo' },
-    { id: 20, name: 'California State University San Marcos' },
-    { id: 21, name: 'Sonoma State University' },
-    { id: 22, name: 'California State University, Stanislaus' },
-  ]
-  const handleOnSearch = (string, results) => {
-    console.log(string, results)
-  }
-  const handleOnHover = (result) => {
-    console.log(result)
-  }
-  const handleOnSelect = (item) => {
-    console.log(item)
-  }
-  const handleOnFocus = (item) => {
-    console.log('Focused')
-  }
-  const formatResult = (item) => {
-    return (
-      <>
-        <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span>
-        <span style={{ display: 'block', textAlign: 'left' }}>name: {item.name}</span>
-      </>
-    )
-  }
-
   return (
-      <div className="flex justify-center items-center relative">
-        <img className="h-full w-full object-fill" src="images/home-image.jpeg" alt=""/>
-        <div className='absolute w-2/3 t-1/2 translate-y-1/2 translate-x-1/5 rounded-3xl bg-white focus:outline-none'>
-          <ReactSearchAutocomplete
-            colleges={colleges}
-            onSearch={handleOnSearch}
-            onHover={handleOnHover}
-            onSelect={handleOnSelect}
-            onFocus={handleOnFocus}
-            autoFocus
-            formatResult={formatResult}
-          />
+  <div>
+    <div className="flex justify-center items-center relative">
+      <img className="h-full w-full object-fill" src="images/home-image.jpeg" alt=""/>
+      <div className='absolute w-2/3 t-1/2 translate-y-1/2 translate-x-1/5 rounded-3xl bg-white focus:outline-none'>
+        <CollegeSearch/>
+      </div>
+    </div>
+    <h1 className='text-center text-4xl pt-5 m-12'>Find Your New Roommate Today!</h1>
+    <div className='grid grid-cols-5 gap-x-10 mb-40 px-30'>
+      <div className='flex items-center justify-end text-3xl'>
+        <button className='h-16 w-12 bg-gray-300'>&lt;</button>
+      </div>
+      <div className='flex flex-col w-full rounded-xl bg-theme-purple'>
+        <div className='flex justify-center px-5 pt-5 w-full h-80'>
+          <img className='rounded-xl' src="images/girl.png" alt="" />
+        </div>
+        <div>
+          <p className='flex justify-center text-3xl py-1'>Fake Name</p>
+          <p className='flex justify-center'>21 | Computer Science | Hosting</p>
+          <p className='flex justify-center py-1 pb-3 text-xl'>Pomona</p>
         </div>
       </div>
+      <div className='flex flex-col w-full rounded-xl bg-theme-purple'>
+        <div className='flex justify-center px-5 pt-5 w-full h-80'>
+          <img className='rounded-xl' src="images/girl.png" alt="" />
+        </div>
+        <div>
+          <p className='flex justify-center text-3xl py-1'>Fake Name</p>
+          <p className='flex justify-center'>21 | Computer Science | Hosting</p>
+          <p className='flex justify-center py-1 pb-3 text-xl'>Pomona</p>
+        </div>
+      </div>
+      <div className='flex flex-col w-full rounded-xl bg-theme-purple'>
+        <div className='flex justify-center px-5 pt-5 w-full h-80'>
+          <img className='rounded-xl' src="images/girl.png" alt="" />
+        </div>
+        <div>
+          <p className='flex justify-center text-3xl py-1'>Fake Name</p>
+          <p className='flex justify-center'>21 | Computer Science | Hosting</p>
+          <p className='flex justify-center py-1 pb-3 text-xl'>Pomona</p>
+        </div>
+      </div>
+      <div className='flex items-center justify-start text-3xl'>
+        <button className='h-16 w-12 bg-gray-300'>&gt;</button>
+      </div>
+    </div>
+    <div className='grid grid-cols-3 gap-x-10 mb-12 px-30'>
+      <div className='flex flex-col items-center'>
+        <p className='flex justify-center text-4xl pb-5'>Match with fellow students</p>
+        <p className='flex justify-center text-center w-1/2 mb-5'>Search for your perfect roommate and connect instantly. Forever friends are made here each day.</p>
+        <img className='flex justify-center rounded-xl drop-shadow-xl h-3/5' src="images/friends.JPG" alt="" />
+      </div>
+      <div className='flex flex-col items-center'>
+        <p className='flex justify-center text-4xl pb-5'>Advertise your open rooms</p>
+        <p className='flex justify-center text-center w-1/2 mb-5'>Streamline your search for the best tenant by becoming a verified host. Never be uncertain again.</p>
+        <img className='flex justify-center rounded-xl drop-shadow-xl h-3/5' src="images/lazy.jpg" alt="" />
+      </div>
+      <div className='flex flex-col items-center'>
+        <p className='flex justify-center text-4xl pb-5'>We care about YOU</p>
+        <p className='flex justify-center text-center w-1/2 mb-5'>Made by college students, for college students. Finding roommates on your terms has never been simpler.</p>
+        <img className='flex justify-center rounded-xl drop-shadow-xl h-3/5' src="images/students.jpg" alt="" />
+      </div>
+    </div>
+    <div className='flex flex-col items-center mb-20'>
+      <h1 className='text-6xl mb-10'>Join now and get to matching!</h1>
+      <button className='h-20 w-52 text-3xl text-white rounded-lg bg-theme-orange' type='button'>
+        <Link to='/signin'>Sign Up</Link>
+      </button>
+    </div>
+  </div>
   )
 }
 
