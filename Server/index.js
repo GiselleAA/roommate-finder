@@ -30,9 +30,15 @@ app.post('/signin', (req, res) => {
 app.post('/register', (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
+    const age = req.body.age;
+    const gender = req.body.gender;
+    const img = req.body.img;
+    const uni = req.body.uni;
+    const major = req.body.major;
+    const bio = req.body.bio;
     const username = req.body.username;
     const password = req.body.password;
-    db.query("INSERT INTO users (firstName, lastName, username, password) VALUES (?, ?, ?, ?)", [firstName, lastName, username, password], (err, result) => {
+    db.query("INSERT INTO users (firstName, lastName, age, gender, img, uni, major, bio, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [firstName, lastName, age, gender, img, uni, major, bio, username, password], (err, result) => {
         if (err)
             console.log(err);
         else

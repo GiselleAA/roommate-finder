@@ -12,7 +12,7 @@ function App() {
       </div>
     </div>
     <h1 className='text-center text-4xl pt-5 m-12'>Find Your New Roommate Today!</h1>
-    <div className='grid grid-cols-5 gap-x-10 mb-40 px-30'>
+    <div className='grid grid-cols-5 gap-x-10 mb-64 px-30'>
       <div className='flex items-center justify-end text-3xl'>
         <button className='h-16 w-12 bg-gray-300'>&lt;</button>
       </div>
@@ -50,7 +50,7 @@ function App() {
         <button className='h-16 w-12 bg-gray-300'>&gt;</button>
       </div>
     </div>
-    <div className='grid grid-cols-3 gap-x-10 mb-12 px-30'>
+    <div className='grid grid-cols-3 gap-x-10 mb-32 px-30'>
       <div className='flex flex-col items-center'>
         <p className='flex justify-center text-4xl pb-5'>Match with fellow students</p>
         <p className='flex justify-center text-center w-1/2 mb-5'>Search for your perfect roommate and connect instantly. Forever friends are made here each day.</p>
@@ -67,7 +67,7 @@ function App() {
         <img className='flex justify-center rounded-xl drop-shadow-xl h-3/5' src="images/students.jpg" alt="" />
       </div>
     </div>
-    <div className='flex flex-col items-center mb-20'>
+    <div className='flex flex-col items-center mb-40'>
       <h1 className='text-6xl mb-10'>Join now and get to matching!</h1>
       <button className='h-20 w-52 text-3xl text-white rounded-lg bg-theme-orange' type='button'>
         <Link to='/signin'>Sign Up</Link>

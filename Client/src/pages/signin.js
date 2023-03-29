@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Signin() {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -10,8 +12,11 @@ function Signin() {
     axios.post('http://localhost:8080/signin', {username: username, password: password}).then((data) => {
     setUsername('');
     setPassword('');
+    window.localStorage.setItem('isAuth', true);
+    navigate('/home');
     })
 }
+
 
     return (
     <div>
@@ -20,8 +25,8 @@ function Signin() {
             <img src="images/palm-logo.png" width={75} height={75} style={{alignSelf: 'center'}} alt="logo"/>
             <h3 className='pl-5 text-3xl text-black'>Roommate<br></br>Finder</h3>
         </div>
-        <input className='w-full h-8 p-1 mb-4 rounded-lg focus:outline-none' id='username' type='text' placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <input className='w-full h-8 p-1 mb-4 rounded-lg focus:outline-none' id='password' type='password' placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='username' type='text' placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='password' type='password' placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <div className='flex justify-center'>
             <button className='px-3 py-1 rounded-lg bg-theme-purple text-black' type='submit'>Sign In</button>
         </div>
