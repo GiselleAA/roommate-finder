@@ -19,7 +19,7 @@
 .env.production.local
 
 test.session.sql
-/vscode
+.vscode
 
 npm-debug.log*
 yarn-debug.log*

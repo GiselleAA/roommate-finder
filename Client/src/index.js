@@ -21,6 +21,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/profile' element={<Profile/>}/>
     <Route path='*' element={<Error/>}/>
   </Route>
+  
 ))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
