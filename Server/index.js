@@ -19,6 +19,15 @@ module.exports = db;
 app.post('/signin', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+    let sql = "SELECT * FROM users WHERE username = ? AND password = ? " 
+    let query = db.query(sql, [username], [password], (err, result) => {
+        if (err)
+            console.log(err);
+        if (result[0].count == 1)
+            res.json({"data": "true"});
+        else
+            res.json({"data": "false"});
+    })
     db.query("INSERT INTO users (username, password) VALUES (?, ?)", [username, password], (err, result) => {
         if (err)
             console.log(err);

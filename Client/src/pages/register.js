@@ -29,7 +29,7 @@ function Register() {
     setBio('');
     setUsername('');
     setPassword('');
-    navigate('/profile');
+    navigate('/profileimage.png');
     })
 }
 

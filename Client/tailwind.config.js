@@ -15,6 +15,7 @@ module.exports = {
         'sans': ['Avenir', 'Arial', 'sans-serif']
       },
       colors: {
+        'theme-blue': '#307BA6',
         'theme-orange':'#E3934C',
         'theme-purple':'#9485CA',
       },

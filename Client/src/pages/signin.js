@@ -10,10 +10,13 @@ function Signin() {
     const submitHandler = e => {
     e.preventDefault();
     axios.post('http://localhost:8080/signin', {username: username, password: password}).then((data) => {
-    setUsername('');
-    setPassword('');
-    window.localStorage.setItem('isAuth', true);
-    navigate('/home');
+    if (data === false )
+        console.log("Invalid");
+    else
+        setUsername('');
+        setPassword('');
+        window.localStorage.setItem('isAuth', true);
+        navigate('/home');
     })
 }
 

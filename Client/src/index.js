@@ -7,6 +7,7 @@ import Signin from './pages/signin';
 import Register from './pages/register';
 import RootLayout from './layouts/RootLayout';
 import Error from './pages/error';
+import Profile from './pages/profile';
 
 const isAuth = window.localStorage.getItem('isAuth');
 console.log(isAuth, "logged in");
@@ -17,7 +18,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/signin' element={<Signin/>}/>
     <Route path='/register' element={<Register/>}/>
     <Route path='/home' element={<App/>}/>
-    <Route path='/profile' element={<App/>}/>
+    <Route path='/profile' element={<Profile/>}/>
     <Route path='*' element={<Error/>}/>
   </Route>
 ))
