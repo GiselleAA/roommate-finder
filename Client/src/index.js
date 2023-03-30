@@ -8,6 +8,7 @@ import Register from './pages/register';
 import RootLayout from './layouts/RootLayout';
 import Error from './pages/error';
 import Profile from './pages/profile';
+import Settings from './pages/settings';
 
 const isAuth = window.localStorage.getItem('isAuth');
 console.log(isAuth, "logged in");
@@ -19,9 +20,10 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/register' element={<Register/>}/>
     <Route path='/home' element={<App/>}/>
     <Route path='/profile' element={<Profile/>}/>
+    <Route path='/settings' element={<Settings/>}/>
     <Route path='*' element={<Error/>}/>
   </Route>
-  
+
 ))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

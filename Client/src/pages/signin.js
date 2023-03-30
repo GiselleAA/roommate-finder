@@ -15,7 +15,7 @@ function Signin() {
     else
         setUsername('');
         setPassword('');
-        window.localStorage.setItem('isAuth', true);
+        window.localStorage.setItem('isAuth', true /*get id from db*/);
         navigate('/home');
     })
 }
