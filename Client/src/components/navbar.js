@@ -17,7 +17,7 @@ export default function Navbar() {
                     <Link to='/profile'><img className='w-full h-full object-cover object-center' src="images/girl.png" alt="" /></Link>
                 </button>
                 <button className={`w-12 h-12 overflow-hidden rounded-full bg-theme-blue ml-4 ${JSON.parse(window.localStorage.getItem('isAuth')) === true ? 'visible' : 'visible'}  type='button'`}>
-                    <Link to='/profile'><img className='mx-auto mt-1 w-5/6 h-5/6 object-cover object-center' src="images/msg.png" alt="" /></Link>
+                    <Link to='/search'><img className='mx-auto mt-1 w-5/6 h-5/6 object-cover object-center' src="images/msg.png" alt="" /></Link>
                 </button>
             </div>
         </nav>

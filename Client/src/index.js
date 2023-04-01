@@ -9,6 +9,7 @@ import RootLayout from './layouts/RootLayout';
 import Error from './pages/error';
 import Profile from './pages/profile';
 import Settings from './pages/settings';
+import Search from './pages/search';
 
 const isAuth = window.localStorage.getItem('isAuth');
 console.log(isAuth, "logged in");
@@ -21,6 +22,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/home' element={<App/>}/>
     <Route path='/profile' element={<Profile/>}/>
     <Route path='/settings' element={<Settings/>}/>
+    <Route path='/search' element={<Search/>}/>
     <Route path='*' element={<Error/>}/>
   </Route>
 

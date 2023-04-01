@@ -7,29 +7,37 @@ function Register() {
     const [firstName, setFirst] = useState('');
     const [lastName, setLast] = useState('');
     const [age, setAge] = useState('');
+    const [email, setEmail] = useState('');
     const [gender, setGender] = useState('');
-    const [img, setImg] = useState('');
+    const [img1, setImg1] = useState('');
     const [uni, setUni] = useState('');
     const [major, setMajor] = useState('');
     const [bio, setBio] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [step, setStep] = useState(1);
+    const [trait1, setTrait1] = useState('');
+    const [trait2, setTrait2] = useState('');
+    const [trait3, setTrait3] = useState('');
 
     const submitHandler = e => {
     e.preventDefault();
-    axios.post('http://localhost:8080/register', {firstName: firstName, lastName: lastName, gender: gender, age: age, img: img, uni: uni, major: major, bio: bio, username: username, password: password}).then((data) => {
+    axios.post('http://localhost:8080/register', {firstName: firstName, lastName: lastName, gender: gender, age: age, email: email, img1: img1, uni: uni, major: major, bio: bio, username: username, password: password, trait1: trait1, trait2: trait2, trait3: trait3}).then((data) => {
     setFirst('');
     setLast('');
     setAge('');
+    setEmail('');
     setGender('');
-    setImg('');
+    setImg1('');
     setUni('');
     setMajor('');
     setBio('');
     setUsername('');
     setPassword('');
-    navigate('/profileimage.png');
+    setTrait1('');
+    setTrait2('');
+    setTrait3('');
+    navigate('/profile');
     })
 }
 

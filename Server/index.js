@@ -8,10 +8,10 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "gasoto",
-    password: "1228",
-    database:"roommate_finder" 
+    host: "sql9.freesqldatabase.com",
+    user: "sql9610342",
+    password: "QEcv7vMsNU",
+    database:"sql9610342" 
 })
 
 module.exports = db;

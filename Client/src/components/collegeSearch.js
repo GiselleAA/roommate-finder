@@ -25,16 +25,16 @@ const colleges = [
     { id: 20, name: 'California State University, San Marcos' },
     { id: 21, name: 'Sonoma State University' },
     { id: 22, name: 'California State University, Stanislaus' },
-    { id: 22, name: 'UC Berkeley' },
-    { id: 22, name: 'UC Davis' },
-    { id: 22, name: 'UC Irvine' },
-    { id: 22, name: 'UCLA' },
-    { id: 22, name: 'UC Merced' },
-    { id: 22, name: 'UC Riverside' },
-    { id: 22, name: 'UC San Diego' },
-    { id: 22, name: 'UC San Francisco' },
-    { id: 22, name: 'UC Santa Barbara' },
-    { id: 22, name: 'UC Santa Cruz' }
+    { id: 23, name: 'UC Berkeley' },
+    { id: 24, name: 'UC Davis' },
+    { id: 25, name: 'UC Irvine' },
+    { id: 26, name: 'UCLA' },
+    { id: 27, name: 'UC Merced' },
+    { id: 28, name: 'UC Riverside' },
+    { id: 29, name: 'UC San Diego' },
+    { id: 30, name: 'UC San Francisco' },
+    { id: 31, name: 'UC Santa Barbara' },
+    { id: 32, name: 'UC Santa Cruz' }
 ]
 
     const handleOnSearch = (string, results) => {
