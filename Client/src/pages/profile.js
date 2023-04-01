@@ -13,7 +13,7 @@ export default function Profile(){
             <div className="flex justify-center items-center h-full w-full my-6">
                 <div className="grid grid-cols-2 gap-x-10 gap-y-6">
                     <div className="grid rounded-2xl w-96 h-72 overflow-hidden bg-theme-orange">
-                        <img className='mx-auto -translate-y-5 w-full h-full object-cover object-center' src="images/girl.png" alt="" />
+                        <img className='mx-auto -translate-y-6 w-fit h-fit object-cover object-center' src="images/girl.png" alt="" />
                     </div>
                     <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-orange">
                         <div className="flex flex-col">
