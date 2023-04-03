@@ -48,7 +48,7 @@ const colleges = [
 }
 
     const handleOnSelect = (item) => {
-    window.localStorage.setItem('college', item.name);
+    window.sessionStorage.setItem('college', item.name);
     navigate('/search');
 }
 

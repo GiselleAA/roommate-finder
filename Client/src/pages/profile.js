@@ -35,6 +35,8 @@ export default function Profile(){
     const [hostScout, setHostScout] = useState('');
     const [onCampus, setOnCampus] = useState('');
 
+    const text = hostScout ? "Host" : "Scout";
+
     axios.post('http://localhost:8080/profile', {id: isAuth}).then((response) => {
         console.log(JSON.stringify(response.data));
         setFirst(response.data.firstName);
@@ -65,7 +67,7 @@ export default function Profile(){
         setDrinker(response.data.drinker);
         setTrait1(response.data.trait1);
         setMusic1(response.data.music1);
-        setHostScout(response.data.hostScout);
+        setHostScout(response.data.hostScout); //show rules and room info if true
         setOnCampus(response.data.onCampus);
     })
 
@@ -73,7 +75,7 @@ export default function Profile(){
         <div className="flex flex-col items-center justify-center mt-10 mx-48">
             <div className="flex flex-col items-center justify-center text-center rounded-2xl w-1/3 h-20 bg-theme-orange">
                 <p className="text-3xl">{firstName}</p>
-                <p className="text-lg">Host</p>
+                <p className="text-lg">{text}</p>
                 <button className={`h-20 w-20 absolute left-2/3 ${isAuth /*pull profile id from db and compare*/ ? 'visbile' : 'invisible'}`}>
                     <Link to='/settings'><img src="images/cog.png" alt="" /></Link>
                 </button>
@@ -85,37 +87,65 @@ export default function Profile(){
                     </div>
                     <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-orange">
                         <div className="flex flex-col">
-                            <p className="text-4xl pb-2">About Me</p>
-                            {age && <p className="text-xl pb-1">Age: {age}</p>}
-                            {gender && <p className="text-xl pb-1">Gender: {gender}</p>}
-                            {religion && <p className="text-xl pb-1">Religion: {religion}</p>}
-                            {uni && <p className="text-xl pb-1">College: {uni}</p>}
-                            {horoscope && <p className="text-xl pb-1">Horoscope: {horoscope}</p>}
+                            <p className="text-4xl pb-1">About Me</p>
+                            {age && <p className="text-xl">Age: {age}</p>}
+                            {gender && <p className="text-xl">Gender: {gender}</p>}
+                            {uni && <p className="text-xl">College: {uni}</p>}
+                            {major && <p className="text-xl">Major: {major}</p>}
+                            {job && <p className="text-xl">Job: {job}</p>}
                         </div>
                     </div>
                     <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-orange">
-                    <div className="flex flex-col">
-                            <p className="text-4xl pb-2">Important Info</p>
-                            {minAge && <p className="text-xl pb-1">Age Range: {minAge}</p>}
-                            {minBudget && <p className="text-xl pb-1">Price Range: {minBudget}</p>}
-                            {onCampus && <p className="text-xl pb-1">On/Off Campus: {onCampus}</p>}
-                            {stayLength && <p className="text-xl pb-1">Length of Stay: {stayLength}</p>}
-                            {job && <p className="text-xl pb-1">Job: {job}</p>}
+                        <div className="flex flex-col">
+                            <p className="text-4xl pb-1">Personal Info</p>
+                            {horoscope && <p className="text-xl">Horoscope: {horoscope}</p>}
+                            {religion && <p className="text-xl">Religion: {religion}</p>}
+                            {orientation && <p className="text-xl">Orientation: {orientation}</p>}
+                            <p className="text-4xl pt-3">Traits</p>
+                            {age && gender && uni && <p className="text-xl">{age}, {age}, {age}</p>}
                         </div>
                     </div>
                     <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-lpurple">
-                    <div className="flex flex-col">
-                            <p className="text-4xl pb-2">Lifestyle</p>
-                            {cleanliness && <p className="text-xl pb-1">Cleanliness: {cleanliness}</p>}
-                            {smoker1 && <p className="text-xl pb-1">Smoking: {smoker1}</p>}
-                            {drinker && <p className="text-xl pb-1">Drinking: {drinker}</p>}
+                        <div className="flex flex-col">
+                            <p className="text-4xl pb-1">Bio</p>
+                            {bio && <p className="text-xl">{bio}</p>}
                         </div>
                     </div>
-                    <div className="grid overflow-hidden rounded-2xl w-96 h-72">
-                        <img className='mx-auto w-full h-full object-cover object-center' src="images/students.jpg" alt="" />
+                    <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-lpurple">
+                        <div className="flex flex-col">
+                            <p className="text-4xl pb-1">Interests</p>
+                            {age && gender && uni && <p className="text-xl">{age}, {age}, {age}</p>}
+                            <p className="text-4xl pt-9">Music</p>
+                            {age && gender && uni && <p className="text-xl">{age}, {age}, {age}</p>}
+                        </div>
                     </div>
-                    <div className="grid overflow-hidden rounded-2xl w-96 h-72">
-                        <img className='mx-auto w-full h-full object-cover object-center' src="images/friends.JPG" alt="" />
+                    <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-orange">
+                        <div className="flex flex-col">
+                            <p className="text-4xl pb-1">Lifestyle</p>
+                            {cleanliness && <p className="text-xl">Cleanliness: {cleanliness}</p>}
+                            {smoker1 && <p className="text-xl">Smoking: {smoker1}, {smoker1}</p>}
+                            {drinker && <p className="text-xl">Drinking: {drinker}</p>}
+                        </div>
+                    </div>
+                    <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-orange">
+                        <div className="flex flex-col">
+                            <p className="text-4xl pb-1">Logistics</p>
+                            {minBudget && <p className="text-xl">Budget: ${minBudget}-{minBudget}</p>}
+                            {minAge && <p className="text-xl">Age Range:{minAge}-{minAge}</p>}
+                            {stayLength && <p className="text-xl">Move Within: {stayLength}</p>}
+                            {stayLength && <p className="text-xl">Length of Stay: {stayLength}</p>}
+                        </div>
+                    </div>
+                    <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-lpurple">
+                        <div className="flex flex-col">
+                            <p className="text-4xl pb-1">Lifestyle</p>
+                            {sleep && <p className="text-xl">Sleep: {cleanliness}</p>}
+                            {homeTime && <p className="text-xl">At Home: {homeTime}</p>}
+                            {cleanliness && <p className="text-xl">Cleanliness: {cleanliness}</p>}
+                            {study1 && <p className="text-xl">Study Environment: {study1}, {study1}</p>}
+                            {smoker1 && <p className="text-xl">Smoking: {smoker1}, {smoker1}</p>}
+                            {drinker && <p className="text-xl">Drinking: {drinker}</p>}
+                        </div>
                     </div>
                 </div>
             </div>
