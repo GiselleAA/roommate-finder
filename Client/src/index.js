@@ -10,6 +10,7 @@ import Error from './pages/error';
 import Profile from './pages/profile';
 import Settings from './pages/settings';
 import Search from './pages/search';
+import Messages from './pages/messages';
 
 const isAuth = window.localStorage.getItem('isAuth');
 console.log(isAuth, "logged in");
@@ -23,6 +24,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/profile' element={<Profile/>}/>
     <Route path='/settings' element={<Settings/>}/>
     <Route path='/search' element={<Search/>}/>
+    <Route path='/messages' element={<Messages/>}/>
     <Route path='*' element={<Error/>}/>
   </Route>
 

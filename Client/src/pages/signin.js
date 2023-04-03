@@ -9,14 +9,17 @@ function Signin() {
 
     const submitHandler = e => {
     e.preventDefault();
-    axios.post('http://localhost:8080/signin', {username: username, password: password}).then((data) => {
-    if (data === false )
-        console.log("Invalid");
-    else
+    axios.post('http://localhost:8080/signin', {username: username, password: password}).then((response) => {
+    const data = response.data.data;
+    if (data === 'false') {
+        navigate('/error');
+    }
+    else {
         setUsername('');
         setPassword('');
-        window.localStorage.setItem('isAuth', true /*get id from db*/);
-        navigate('/home');
+        window.localStorage.setItem('isAuth', data);
+        navigate('/search');
+    }
     })
 }
 
