@@ -49,7 +49,7 @@ function Register() {
         <div className="flex justify-center">
             <div className="w-full max-w-md">
             {step === 1 && (<div style={{ animation: 'slide-in-right 0.5s ease' }}>
-                <form className='mx-auto px-5 pt-5 pb-3 rounded-2xl bg-theme-orange w-72 mt-36' onSubmit={submitHandler}>
+                <form className='mx-auto px-5 pt-5 pb-3  rounded-2xl bg-theme-orange w-72 mt-36' onSubmit={submitHandler}>
                     <h3 className='text-3xl pb-4'>Create Account</h3>
                     <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='username' type='text' placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='password' type='password' placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -65,7 +65,7 @@ function Register() {
                             <input className='h-9 px-3 py-2 mb-4 rounded-lg focus:outline-none' id='firstName' type='text' placeholder="First Name" value={firstName} onChange={(e) => setFirst(e.target.value)} />
                             <input className='h-9 px-3 py-2 mb-4 rounded-lg focus:outline-none' id='lastName' type='text' placeholder="Last Name" value={lastName} onChange={(e) => setLast(e.target.value)} />
                             <input className='h-9 px-3 py-2 mb-4 rounded-lg focus:outline-none' id='username' type='text' placeholder="Gender" value={gender} onChange={(e) => setGender(e.target.value)} />
-                            <input className='h-9 px-3 py-2 mb-4 rounded-lg focus:outline-none' id='password' type='password' placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} />
+                            <input className='h-9 px-3 py-2 mb-4 rounded-lg focus:outline-none' id='zip' type='number' placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} />
                         </div>
                         <div className='flex justify-center'>
                             <button className='px-3 py-1 rounded-lg bg-theme-purple text-black mb-1' type='button' onClick={handlePress}>Next</button>

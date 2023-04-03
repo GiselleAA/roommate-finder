@@ -1,6 +1,8 @@
-import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+import { useNavigate } from 'react-router-dom';
 
 export default function CollegeSearch() {
+const navigate = useNavigate();
 const colleges = [ 
     { id: 0, name: 'California State University, Bakersfield' },
     { id: 1, name: 'California State University Channel Islands' },
@@ -46,7 +48,8 @@ const colleges = [
 }
 
     const handleOnSelect = (item) => {
-    console.log(item);    
+    window.localStorage.setItem('college', item.name);
+    navigate('/search');
 }
 
     const handleOnFocus = () => {

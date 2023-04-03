@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 
 export default function Profile(){
+    const isAuth = window.localStorage.getItem('isAuth');
     return (
         <div className="flex flex-col items-center justify-center mt-10 mx-48">
             <div className="flex flex-col items-center justify-center text-center rounded-2xl w-1/3 h-20 bg-theme-orange">
                 <p className="text-3xl">Fake Name</p>
                 <p className="text-lg">Host</p>
-                <button className="h-20 w-20 absolute left-2/3">
+                <button className={`h-20 w-20 absolute left-2/3 ${isAuth /*pull profile id from db and compare*/ ? 'visbile' : 'invisible'}`}>
                     <Link to='/settings'><img src="images/cog.png" alt="" /></Link>
                 </button>
             </div>

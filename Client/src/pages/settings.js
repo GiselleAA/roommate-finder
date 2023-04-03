@@ -26,12 +26,18 @@ export default function Settings() {
     const [horoscope, setHoroscope] = useState('');
     const [religion, setReligion] = useState('');
     const [orientation, setOrientation] = useState('');
+    const [interest1, setInterest1] = useState('');
+    const [interest2, setInterest2] = useState('');
+    const [interest3, setInterest3] = useState('');
     const [minAge, setMinAge] = useState('');
     const [maxAge, setMaxAge] = useState('');
     const [minBudget, setMinBudget] = useState('');
     const [maxBudget, setMaxBudget] = useState('');
     const [stayLength, setStayLength] = useState('');
-    const [amenities, setAmenities] = useState('');
+    const [amenity1, setAmenity1] = useState('');
+    const [amenity2, setAmenity2] = useState('');
+    const [amenity3, setAmenity3] = useState('');
+    const [amenity4, setAmenity4] = useState('');
     const [pets, setPets] = useState('');
     const [guests, setGuests] = useState(false);
     const [parties, setParties] = useState(false);
@@ -93,70 +99,91 @@ export default function Settings() {
         setOnCampus(false);
     };
 
+    const [selectedInterests, setSelectedInterests] = useState([]);
+    const handleInterestClick = (interest) => {
+        if (selectedInterests.includes(interest)) {
+            setSelectedInterests(selectedInterests.filter((g) => g !== interest));
+        } 
+        else if (selectedInterests.length < 3) {
+            setSelectedInterests([...selectedInterests, interest]);
+        }
+    };
+
+    const [selectedTraits, setSelectedTraits] = useState([]);
+    const handleTraitClick = (trait) => {
+        if (selectedTraits.includes(trait)) {
+            setSelectedTraits(selectedTraits.filter((g) => g !== trait));
+        } 
+        else if (selectedTraits.length < 3) {
+            setSelectedTraits([...selectedTraits, trait]);
+        } 
+    };
+
+    const [selectedMusic, setSelectedMusic] = useState([]);
+    const handleMusicClick = (music) => {
+        if (selectedMusic.includes(music)) {
+            setSelectedMusic(selectedMusic.filter((g) => g !== music));
+        } 
+        else if (selectedMusic.length < 3) {
+            setSelectedMusic([...selectedMusic, music]);
+        } 
+    };
+
+    const [selectedAmenities, setSelectedAmenities] = useState([]);
+    const handleAmenitiesClick = (amenity) => {
+        if (selectedAmenities.includes(amenity)) {
+            setSelectedAmenities(selectedAmenities.filter((g) => g !== amenity));
+        } 
+        else if (selectedAmenities.length < 4) {
+            setSelectedAmenities([...selectedAmenities, amenity]);
+        } 
+    };
+
     const submitHandler = e => {
     e.preventDefault();
-    axios.post('http://localhost:8080/settings', {firstName: firstName, lastName: lastName, email: email, age: age, gender: gender, img1: img1, img2: img2, img3: img3, uni: uni, major: major, bio: bio, social1: social1, social2: social2, social3: social3, username: username, password: password, job: job, location: location, horoscope: horoscope, religion: religion, orientation: orientation, minAge: minAge, maxAge: maxAge, minBudget: minBudget, maxBudget: maxBudget, stayLength: stayLength, amenities: amenities, pets: pets, guests: guests, parties: parties, sleep: sleep, homeTime: homeTime, cleanliness: cleanliness, study1: study1, study2: study2, smoker1: smoker1, smoker2: smoker2, drinker: drinker, trait1: trait1, trait2: trait2, trait3: trait3, music1: music1, music2: music2, music3: music3, hostScout: hostScout, onCampus: onCampus, prefLocation: prefLocation, prefGender: prefGender, prefReligion: prefReligion, prefOrientation: prefOrientation, prefSmoker1: prefSmoker1, prefSmoker2: prefSmoker2, prefDrinker: prefDrinker, prefCleanliness: prefCleanliness, prefPets: prefPets, prefSleep: prefSleep, prefHomeTime: prefHomeTime, prefStudy1: prefStudy1, prefStudy2: prefStudy2, prefGuests: prefGuests, prefParties: prefParties}).then((data) => {
-        setFirst('');
-        setLast('');
-        setEmail('');
-        setAge('');
-        setGender('');
-        setImg1('');
-        setImg2('');
-        setImg3('');
-        setUni('');
-        setMajor('');
-        setBio('');
-        setSocial1('');
-        setSocial2('');
-        setSocial3('');
-        setUsername('');
-        setPassword('');
-        setJob('');
-        setLocation('');
-        setHoroscope('');
-        setReligion('');
-        setOrientation('');
-        setMinAge('');
-        setMaxAge('');
-        setMinBudget('');
-        setMaxBudget('');
-        setStayLength('');
-        setAmenities('');
-        setPets('');
-        setGuests('');
-        setParties('');
-        setSleep('');
-        setHomeTime('');
-        setCleanliness('');
-        setStudy1('');
-        setStudy2('');
-        setSmoker1('');
-        setSmoker2('');
-        setDrinker('');
-        setTrait1('');
-        setTrait2('');
-        setTrait3('');
-        setMusic1('');
-        setMusic2('');
-        setMusic3('');
-        setHostScout('');
-        setOnCampus('');
-        setPrefLocation('');
-        setPrefGender('');
-        setPrefReligion('');
-        setPrefOrientaion('');
-        setPrefSmoker1('');
-        setPrefSmoker2('');
-        setPrefDrinker('');
-        setPrefCleanliness('');
-        setPrefPets('');
-        setPrefSleep('');
-        setPrefHomeTime('');
-        setPrefStudy1('');
-        setPrefStudy2('');
-        setPrefGuests('');
-        setPrefParties('');
+    if (selectedInterests.length >= 1) {
+        setInterest1(selectedInterests[0]);
+    }
+    if (selectedInterests.length >= 2) {
+        setInterest2(selectedInterests[1]);
+    }
+    if (selectedInterests.length >= 3) {
+        setInterest3(selectedInterests[2]);
+    }
+
+    if (selectedTraits.length >= 1) {
+        setTrait1(selectedTraits[0]);
+    }
+    if (selectedTraits.length >= 2) {
+        setTrait2(selectedTraits[1]);
+    }
+    if (selectedTraits.length >= 3) {
+        setTrait3(selectedTraits[2]);
+    }
+
+    if (selectedMusic.length >= 1) {
+        setMusic1(selectedMusic[0]);
+    }
+    if (selectedMusic.length >= 2) {
+        setMusic2(selectedMusic[1]);
+    }
+    if (selectedMusic.length >= 3) {
+        setMusic3(selectedMusic[2]);
+    }
+
+    if (selectedAmenities.length >= 1) {
+        setAmenity1(selectedAmenities[0]);
+    }
+    if (selectedAmenities.length >= 2) {
+        setAmenity2(selectedAmenities[1]);
+    }
+    if (selectedAmenities.length >= 3) {
+        setAmenity3(selectedAmenities[2]);
+    }
+    if (selectedAmenities.length >= 4) {
+        setAmenity3(selectedAmenities[3]);
+    }
+    axios.post('http://localhost:8080/settings', {firstName: firstName, lastName: lastName, email: email, age: age, gender: gender, img1: img1, img2: img2, img3: img3, uni: uni, major: major, bio: bio, social1: social1, social2: social2, social3: social3, username: username, password: password, job: job, location: location, horoscope: horoscope, religion: religion, orientation: orientation, interest1: interest1, interest2: interest2, interest3: interest3, minAge: minAge, maxAge: maxAge, minBudget: minBudget, maxBudget: maxBudget, stayLength: stayLength, amenity1: amenity1, amenity2: amenity2, amenity3: amenity3, pets: pets, guests: guests, parties: parties, sleep: sleep, homeTime: homeTime, cleanliness: cleanliness, study1: study1, study2: study2, smoker1: smoker1, smoker2: smoker2, drinker: drinker, trait1: trait1, trait2: trait2, trait3: trait3, music1: music1, music2: music2, music3: music3, hostScout: hostScout, onCampus: onCampus, prefLocation: prefLocation, prefGender: prefGender, prefReligion: prefReligion, prefOrientation: prefOrientation, prefSmoker1: prefSmoker1, prefSmoker2: prefSmoker2, prefDrinker: prefDrinker, prefCleanliness: prefCleanliness, prefPets: prefPets, prefSleep: prefSleep, prefHomeTime: prefHomeTime, prefStudy1: prefStudy1, prefStudy2: prefStudy2, prefGuests: prefGuests, prefParties: prefParties}).then((data) => {
         navigate('/profile');
     })
 }
@@ -184,18 +211,66 @@ export default function Settings() {
             </div>
 
             <div className='flex flex-col items-center'>
-                <p className='flex justify-center text-3xl my-5'>About Me</p>
+                <p className='flex justify-center text-4xl my-5'>About Me</p>
                 <div className='flex justify-center flex-row text-center mr-40'>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Age</p>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' value={age} onChange={(e) => setAge(e.target.value)}>
+                        <option value=''>Select</option>
+                        {Array.from({length: 100}, (_, i) => i + 1).map((age) => (
+                        <option key={age} value={age}>{age}</option>
+                        ))}
+                    </select>          
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Gender</p>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' value={gender} onChange={(e) => setGender(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Male'>Male</option>
+                        <option value='Female'>Female</option>
+                        <option value='Nonbinary'>Nonbinary</option>
+                        <option value='Transgender'>Transgender</option>
+                        <option value='Other'>Other</option>
+                        <option value='None'>Prefer not to say</option>
+                    </select>
+
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>University</p>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='California State University, Bakersfield'>California State University, Bakersfield</option>
+                        <option value='California State University Channel Islands'>California State University Channel Islands</option>
+                        <option value='California State University, Chico'>California State University, Chico</option>
+                        <option value='California State University, Dominguez Hills'>California State University, Dominguez Hills</option>
+                        <option value='California State University, East Bay'>California State University, East Bay</option>
+                        <option value='California State University, Fullerton'>California State University, Fullerton</option>
+                        <option value='Humboldt State University'>Humboldt State University</option>
+                        <option value='California State University, Long Beach'>California State University, Long Beach</option>
+                        <option value='California State University, Los Angeles'>California State University, Los Angeles</option>
+                        <option value='California State University Maritime Academy'>California State University Maritime Academy</option>
+                        <option value='California State University, Monterey Bay'>California State University, Monterey Bay</option>
+                        <option value='California State University, Northridge'>California State University, Northridge</option>
+                        <option value='California State Polytechnic University, Pomona'>California State Polytechnic University, Pomona</option>
+                        <option value='California State University, Sacramento'>California State University, Sacramento</option>
+                        <option value='California State University, San Bernardino'>California State University, San Bernardino</option>
+                        <option value='San Diego State University'>San Diego State University</option>
+                        <option value='San Francisco State University'>San Francisco State University</option>
+                        <option value='San José State University'>San José State University</option>
+                        <option value='California Polytechnic State University, San Luis Obispo'>California Polytechnic State University, San Luis Obispo</option>
+                        <option value='California State University, San Marcos'>California State University, San Marcos</option>
+                        <option value='Sonoma State University'>Sonoma State University</option>
+                        <option value='California State University, Stanislaus'>California State University, Stanislaus</option>
+                        <option value='UC Berkeley'>UC Berkeley</option>
+                        <option value='UC Davis'>UC Davis</option>
+                        <option value='UC Irvine'>UC Irvine</option>
+                        <option value='UCLA'>UCLA</option>
+                        <option value='UC Merced'>UC Merced</option>
+                        <option value='UC Riverside'>UC Riverside</option>
+                        <option value='UC San Diego'>UC San Diego</option>
+                        <option value='UC San Francisco'>UC San Francisco</option>
+                        <option value='UC Santa Barbara'>UC Santa Barbara</option>
+                        <option value='UC Santa Cruz'>UC Santa Cruz</option>
+                    </select>
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Major</p>
@@ -206,106 +281,487 @@ export default function Settings() {
                     <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='job' type='text' value={job} onChange={(e) => setJob(e.target.value)}/>
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
-                    <p className='p-3 w-36 h-12 bg-theme-gray text-white'>Current Location</p>
-                    <input className='px-3 py-2 w-[337px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='location' type='text' value={location} onChange={(e) => setLocation(e.target.value)}/>
+                    <p className='p-3 w-30 h-12 bg-theme-gray text-white'>Current Zip</p>
+                    <input className='px-3 py-2 w-[377px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='location' type='text' value={location} onChange={(e) => setLocation(e.target.value)}/>
                 </div>
                 <div className='flex justify-center flex-row text-center mt-5 ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='horoscope' type='text' value={horoscope} onChange={(e) => setHoroscope(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='horoscope' type='text' value={horoscope} onChange={(e) => setHoroscope(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Aquarius'>Aquarius</option>
+                        <option value='Pisces'>Pisces</option>
+                        <option value='Aries'>Aries</option>
+                        <option value='Taurus'>Taurus</option>
+                        <option value='Gemini'>Gemini</option>
+                        <option value='Cancer'>Cancer</option>
+                        <option value='Leo'>Leo</option>
+                        <option value='Virgo'>Virgo</option>
+                        <option value='Libra'>Libra</option>
+                        <option value='Scorpio'>Scorpio</option>
+                        <option value='Sagittarius'>Sagittarius</option>
+                        <option value='Capricorn'>Capricorn</option>
+                    </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Horoscope</p>
                 </div>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='religion' type='text' value={religion} onChange={(e) => setReligion(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='religion' type='text' value={religion} onChange={(e) => setReligion(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Christianity'>Christianity</option>
+                        <option value='Islam'>Islam</option>
+                        <option value='Judaism'>Judaism</option>
+                        <option value='Hinduism'>Hinduism</option>
+                        <option value='Buddhism'>Buddhism</option>
+                        <option value='Indigenous'>Indigenous</option>
+                        <option value='Other'>Other</option>
+                        <option value='Irreligious '>Irreligious</option>
+                    </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Religion</p>
                 </div>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='orientation' type='text' value={orientation} onChange={(e) => setOrientation(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='orientation' type='text' value={orientation} onChange={(e) => setOrientation(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Heterosexual'>Heterosexual</option>
+                        <option value='Homosexual'>Homosexual</option>
+                        <option value='Bisexual'>Bisexual</option>
+                        <option value='Pansexual'>Pansexual</option>
+                        <option value='Asexual'>Asexual</option>
+                        <option value='Other'>Other</option>
+                    </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Orientation</p>
                 </div>
-                <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}/>
-                    <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Interests</p>
+                <p className='flex justify-center text-2xl my-2'>Interests</p>
+                <div className='grid grid-cols-5 gap-x-2 gap-y-2 justify-center text-center mb-3'>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Parties') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Parties')}>
+                        Parties
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Movies') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Movies')}>
+                        Movies
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Cooking') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Cooking')}>
+                        Cooking
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Art') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Art')}>
+                        Art
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Concerts') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Concerts')}>
+                        Concerts
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Baking') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Baking')}>
+                        Baking
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Shows') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Shows')}>
+                        Shows
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Music') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Music')}>
+                        Music
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Tech') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Tech')}>
+                        Tech
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Reading') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Reading')}>
+                        Reading
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Vegetarian') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Vegetarian')}>
+                        Vegetarian
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Vegan') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Vegan')}>
+                        Vegan
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Sports') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Sports')}>
+                        Sports
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('DIY Crafts') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('DIY Crafts')}>
+                        DIY Crafts
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Gaming') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Gaming')}>
+                        Gaming
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Athlete') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Athlete')}>
+                        Athlete
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Photography') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Photography')}>
+                        Photography
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Gym') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Gym')}>
+                        Gym
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Cars') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Cars')}>
+                        Cars
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Astrology') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Astrology')}>
+                        Astrology
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Thrifting') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Thrifting')}>
+                        Thrifting
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Knitting') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Knitting')}>
+                        Knitting
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Writing') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Writing')}>
+                        Writing
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Crocheting') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Crocheting')}>
+                        Crocheting
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Dance') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Dance')}>
+                        Dance
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Anime') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Anime')}>
+                        Anime
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Instruments') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Instruments')}>
+                        Instruments
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Adrenaline') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Adrenaline')}>
+                        Adrenaline
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Exploration') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Exploration')}>
+                        Exploration
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedInterests.includes('Hiking') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Hiking')}>
+                        Hiking
+                    </button>
                 </div>
-                <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}/>
-                    <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Traits</p>
+                <p className='flex justify-center text-2xl my-2'>Traits</p>
+                <div className='grid grid-cols-4 gap-x-2 gap-y-2 justify-center text-center mb-3'>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Easy Going') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Easy Going')}>
+                        Easy Going
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Introverted') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Introverted')}>
+                        Introverted
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Confident') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Confident')}>
+                        Confident
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Creative') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Creative')}>
+                        Creative
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Energetic') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Energetic')}>
+                        Energetic
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Studious') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Studious')}>
+                        Studious
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Extroverted') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Extroverted')}>
+                        Extroverted
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Friendly') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Friendly')}>
+                        Friendly
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Blunt') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Blunt')}>
+                        Blunt
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Reliable') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Reliable')}>
+                        Reliable
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Procrastinator') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Procrastinator')}>
+                        Procrastinator
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Flexible') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Flexible')}>
+                        Flexible
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Compassionate') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Compassionate')}>
+                        Compassionate
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Realistic') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Realistic')}>
+                        Realistic
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Determined') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Determined')}>
+                        Determined
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedTraits.includes('Adaptable') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleTraitClick('Adaptable')}>
+                        Adaptable
+                    </button>
                 </div>
-                <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}/>
-                    <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Music</p>
+                <p className='flex justify-center text-2xl my-2'>Music</p>
+                <div className='grid grid-cols-5 gap-x-2 gap-y-2 justify-center text-center mb-3'>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Alternative') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Alternative')}>
+                        Alternative
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Rock') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Rock')}>
+                        Rock
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Hip-Hop') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Hip-Hop')}>
+                        Hip-Hop
+                    </button>            
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Pop') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Pop')}>
+                        Pop
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Blues') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Blues')}>
+                        Blues
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Classical') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Classical')}>
+                        Classical
+                    </button>            
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Jazz') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Jazz')}>
+                        Jazz
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Electronic') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Electronic')}>
+                        Electronic
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Reggaeton') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Reggaeton')}>
+                        Reggaeton
+                    </button>            
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Punk') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Punk')}>
+                        Punk
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Country') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Country')}>
+                        Country
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Rap') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Rap')}>
+                        Rap
+                    </button>            
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Midwest') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Midwest')}>
+                        Midwest
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Raggae') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Raggae')}>
+                        Raggae
+                    </button>            
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('R&B') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('R&B')}>
+                        R&B
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Instrumental') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Instrumental')}>
+                        Instrumental
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('EDM') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('EDM')}>
+                        EDM
+                    </button>            
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('K-Pop') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('K-Pop')}>
+                        K-Pop
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Metal') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Metal')}>
+                        Metal
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedMusic.includes('Folk') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleMusicClick('Folk')}>
+                        Folk
+                    </button>            
                 </div>
                 <div className='flex justify-center flex-row text-center ml-6 mt-5'>
                     <p className='p-3 w-24 h-44 bg-theme-gray text-white'>Bio</p>
                     <textarea className='resize-none h-44 w-[570px] px-3 py-2 mb-3 focus:outline-none bg-theme-lpurple' id='bio' type='text' value={bio} onChange={(e) => setBio(e.target.value)}/>
                 </div>
 
-                <p className='flex justify-center text-3xl my-4'>Room Location</p>
+                <p className='flex justify-center text-4xl my-4'>Room Location</p>
                 <div className='flex text-2xl mb-2'>
-                        <button className={`p-3 w-44 text-white resize:none hover:border-2 hover:border-black ${isClicked3 ? 'bg-theme-purple': 'bg-theme-gray'}`} onClick={handleClick3}>
-                            On Campus
-                        </button>
-                        <button className={`p-3 w-44 text-white hover:border-2 hover:border-black ${isClicked4 ? 'bg-theme-purple': 'bg-theme-gray'}`} onClick={handleClick4}>
-                            Off Campus
-                        </button>
-                    </div>
-                <p className='flex justify-center text-3xl my-5'>Logistics</p>
+                    <button className={`p-3 w-44 text-white resize:none hover:border-2 hover:border-black ${isClicked3 ? 'bg-theme-purple': 'bg-theme-gray'}`} onClick={handleClick3}>
+                        On Campus
+                    </button>
+                    <button className={`p-3 w-44 text-white hover:border-2 hover:border-black ${isClicked4 ? 'bg-theme-purple': 'bg-theme-gray'}`} onClick={handleClick4}>
+                        Off Campus
+                    </button>
+                </div>
+                <p className='flex justify-center text-4xl my-5'>Logistics</p>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <input className='px-3 py-2 w-[380px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Under $1000'>Under $1000</option>
+                        <option value='$1000-$2000'>$1000-$2000</option>
+                        <option value='$2000-$3000'>$2000-$3000</option>
+                        <option value='$3000+'>$3000+</option>
+                    </select>
                     <p className='p-3 w-[102px] h-12 bg-theme-gray text-white'>Budget</p>
                 </div>
                 <div className='flex justify-center flex-row text-center ml-[211px]'>
-                    <input className='px-3 py-2 w-[380px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='18-22'>18-22</option> 
+                        <option value='18-22'>18-22</option> 
+                        <option value='30+'>30+</option> 
+                    </select>
                     <p className='p-3 w-30 h-12 bg-theme-gray text-white'>Age Range</p>                
                 </div>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <input className='px-3 py-2 w-[355px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}/>
-                    <p className='p-3 w-32 h-12 bg-theme-gray text-white'>Move In Date</p>
+                    <select className='px-3 py-2 w-[359px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='ASAP'>ASAP</option>
+                        <option value='1 Month'>1 Month</option>
+                        <option value='3 Months'>3 Months</option>
+                        <option value='6 Months'>6 Months</option>
+                    </select>
+                    <p className='p-3 w-32 h-12 bg-theme-gray text-white'>Move Within</p>
                 </div>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <input className='px-3 py-2 w-[355px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}/>
+                    <select className='px-3 py-2 w-[359px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='3 Months'>3 Months</option>
+                        <option value='6 Months'>6 Months</option>
+                        <option value='1 Year+'>1 Year+</option>
+                    </select>
                     <p className='p-3 w-32 h-12 bg-theme-gray text-white'>Length of Stay</p>
                 </div>
                 
-                <p className='flex justify-center text-3xl my-5'>Room Info</p>
-                <div className='flex justify-center flex-row text-center mr-40'>
-                    <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Amenities</p>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}/>
+                <p className='flex justify-center text-4xl mt-5'>Room Info</p>
+                <p className='flex justify-center text-2xl my-2'>Amenities</p>
+                <div className='grid grid-cols-5 gap-x-2 gap-y-2 justify-center text-center mb-3'>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('In-Unit Laundry') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('In-Unit Laundry')}>
+                        In-Unit Laundry
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Kitchen Appliances') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Kitchen Appliances')}>
+                        Kitchen Appliances
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Dishwasher') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Dishwasher')}>
+                        Dishwasher
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Air Conditioning') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Air Conditioning')}>
+                        Air Conditioning
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Heater') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Heater')}>
+                        Heater
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Fast Internet') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Fast Internet')}>
+                        Fast Internet
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Private Bathroom') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Private Bathroom')}>
+                        Private Bathroom
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Media Room') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Media Room')}>
+                        Media Room
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Natural Light') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Natural Light')}>
+                        Natural Light
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('View') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('View')}>
+                        View
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Fireplace') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Fireplace')}>
+                        Fireplace
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Backyard') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Backyard')}>
+                        Backyard
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Patio') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Patio')}>
+                        Patio
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Balcony') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Balcony')}>
+                        Balcony
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Pool') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Pool')}>
+                        Pool
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Barbeque') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Barbeque')}>
+                        Barbeque
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Gym') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Gym')}>
+                        Gym
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Private Parking') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Private Parking')}>
+                        Private Parking
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Garage') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Garage')}>
+                        Garage
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('EV Charging') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('EV Charging')}>
+                        EV Charging
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Storage') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Storage')}>
+                        Storage
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Gated') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Gated')}>
+                        Gated
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Security Features') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Security Features')}>
+                        Security Features
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Pet Area') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Pet Area')}>
+                        Pet Area
+                    </button>
+                    <button className={`px-4 py-2 rounded-2xl ${selectedAmenities.includes('Concierge') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleAmenitiesClick('Concierge')}>
+                        Concierge
+                    </button>
                 </div>
+                <p className='flex justify-center text-2xl my-2'>Rules</p>
                 <div className='flex justify-center flex-row text-center mr-40'>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Pets</p>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Small Animals'>Small Animals</option>
+                        <option value='Large Animals'>Large Animals</option>
+                        <option value='Not Allowed'>Not Allowed</option>
+                    </select>
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Guests</p>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Often'>Often</option>
+                        <option value='Sometimes'>Sometimes</option>
+                        <option value='Never'>Never</option>
+                    </select>
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Parties</p>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Often'>Often</option>
+                        <option value='Sometimes'>Sometimes</option>
+                        <option value='Never'>Never</option>
+                    </select>
                 </div>
 
-                <p className='flex justify-center text-3xl my-5'>Lifestyle</p>
+                <p className='flex justify-center text-4xl my-5'>Lifestyle</p>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Early Bird'>Early Bird</option>
+                        <option value='Night Owl'>Night Owl</option>
+                    </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Sleep</p>                
                 </div>
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Often'>Often</option>
+                        <option value='Not Often'>Not Often</option>
+                        <option value='Varies'>Varies</option>
+                    </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>At Home</p>
                 </div>
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='High'>High</option>
+                        <option value='Medium'>Medium</option>
+                        <option value='Low'>Low</option>
+                    </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Cleanliness</p>                
                 </div>
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}/>
-                    <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Study</p>                
+                    <div className='flex flex-col'>
+                        <select className='px-3 py-2 w-[367px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                            <option value=''>Select</option>
+                            <option value='Quiet'>Quiet</option>
+                            <option value='Noise'>Noise</option>
+                        </select>
+                        <select className='px-3 py-2 w-[367px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                            <option value=''>Select</option>
+                            <option value='Alone'>Alone</option>
+                            <option value='With Others'>With Others</option>
+                        </select>
+                    </div>
+                    <p className='p-3 w-30 h-[108px] bg-theme-gray text-white'>Study<br></br>Environment</p>                
                 </div>
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}/>
-                    <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Smoking</p>                
+                    <div className='flex flex-col'> 
+                        <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                            <option value=''>Select</option>
+                            <option value='Vape'>Vape</option>
+                            <option value='Weed'>Weed</option>
+                            <option value='Tobacco'>Tobacco</option>
+                            <option value='None'>None</option>
+                        </select>
+                        <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                            <option value=''>Select</option>
+                            <option value='Often'>Often</option>
+                            <option value='Sometimes'>Sometimes</option>
+                        </select>
+                    </div>
+                    <p className='p-3 w-24 h-[108px] bg-theme-gray text-white'>Smoking</p>                
                 </div>
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
-                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}/>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                        <option value=''>Select</option>
+                        <option value='Often'>Often</option>
+                        <option value='Sometimes'>Sometimes</option>
+                    </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Drinking</p>                
                 </div>
 
