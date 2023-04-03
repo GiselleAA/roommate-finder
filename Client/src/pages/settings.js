@@ -5,73 +5,71 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Settings() {
     const navigate = useNavigate();
+    const isAuth = window.localStorage.getItem('isAuth');
     const [firstName, setFirst] = useState('');
     const [lastName, setLast] = useState('');
-    const [email, setEmail] = useState('');
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
     const [img1, setImg1] = useState('');
-    const [img2, setImg2] = useState('');
-    const [img3, setImg3] = useState('');
     const [uni, setUni] = useState('');
     const [major, setMajor] = useState('');
     const [bio, setBio] = useState('');
-    const [social1, setSocial1] = useState('')
-    const [social2, setSocial2] = useState('')
-    const [social3, setSocial3] = useState('')
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [job, setJob] = useState('');
     const [location, setLocation] = useState('');
     const [horoscope, setHoroscope] = useState('');
     const [religion, setReligion] = useState('');
     const [orientation, setOrientation] = useState('');
-    const [interest1, setInterest1] = useState('');
-    const [interest2, setInterest2] = useState('');
-    const [interest3, setInterest3] = useState('');
     const [minAge, setMinAge] = useState('');
-    const [maxAge, setMaxAge] = useState('');
     const [minBudget, setMinBudget] = useState('');
-    const [maxBudget, setMaxBudget] = useState('');
     const [stayLength, setStayLength] = useState('');
-    const [amenity1, setAmenity1] = useState('');
-    const [amenity2, setAmenity2] = useState('');
-    const [amenity3, setAmenity3] = useState('');
-    const [amenity4, setAmenity4] = useState('');
+    const [amenities, setAmenities] = useState('');
     const [pets, setPets] = useState('');
-    const [guests, setGuests] = useState(false);
-    const [parties, setParties] = useState(false);
+    const [guests, setGuests] = useState('');
+    const [parties, setParties] = useState('');
     const [sleep, setSleep] = useState('');
     const [homeTime, setHomeTime] = useState('');
     const [cleanliness, setCleanliness] = useState('');
     const [study1, setStudy1] = useState('');
-    const [study2, setStudy2] = useState('');
     const [smoker1, setSmoker1] = useState('');
-    const [smoker2, setSmoker2] = useState('');
     const [drinker, setDrinker] = useState('');
     const [trait1, setTrait1] = useState('');
-    const [trait2, setTrait2] = useState('');
-    const [trait3, setTrait3] = useState('');
     const [music1, setMusic1] = useState('');
-    const [music2, setMusic2] = useState('');
-    const [music3, setMusic3] = useState('');
-    const [prefLocation, setPrefLocation] = useState('');
-    const [prefGender, setPrefGender] = useState('');
-    const [prefReligion, setPrefReligion] = useState('');
-    const [prefOrientation, setPrefOrientaion] = useState('');
-    const [prefSmoker1, setPrefSmoker1] = useState('');
-    const [prefSmoker2, setPrefSmoker2] = useState('');
-    const [prefDrinker, setPrefDrinker] = useState('');
-    const [prefCleanliness, setPrefCleanliness] = useState('');
-    const [prefPets, setPrefPets] = useState('');
-    const [prefSleep, setPrefSleep] = useState('');
-    const [prefHomeTime, setPrefHomeTime] = useState('');
-    const [prefStudy1, setPrefStudy1] = useState('');
-    const [prefStudy2, setPrefStudy2] = useState('');
-    const [prefGuests, setPrefGuests] = useState(false);
-    const [prefParties, setPrefParties] = useState(false);
-    const [hostScout, setHostScout] = useState(false);
-    const [onCampus, setOnCampus] = useState(false);
+    const [hostScout, setHostScout] = useState('');
+    const [onCampus, setOnCampus] = useState('');
+
+    axios.post('http://localhost:8080/profile', {id: isAuth}).then((response) => {
+        console.log(JSON.stringify(response.data));
+        setFirst(response.data.firstName);
+        setLast(response.data.lastName);
+        setAge(response.data.age);
+        setGender(response.data.gender);
+        setImg1(response.data.img1);
+        setUni(response.data.uni);
+        setMajor(response.data.major);
+        setBio(response.data.bio);
+        setJob(response.data.job);
+        setLocation(response.data.location);
+        setHoroscope(response.data.horoscope);
+        setReligion(response.data.religion);
+        setOrientation(response.data.orientation);
+        setMinAge(response.data.minAge);
+        setMinBudget(response.data.minBudget);
+        setStayLength(response.data.stayLength);
+        setAmenities(response.data.amenities);
+        setPets(response.data.pets);
+        setGuests(response.data.guests);
+        setParties(response.data.parties);
+        setSleep(response.data.sleep);
+        setHomeTime(response.data.homeTime);
+        setCleanliness(response.data.cleanliness);
+        setStudy1(response.data.study1);
+        setSmoker1(response.data.smoker1);
+        setDrinker(response.data.drinker);
+        setTrait1(response.data.trait1);
+        setMusic1(response.data.music1);
+        setHostScout(response.data.hostScout); //show rules and room info if true
+        setOnCampus(response.data.onCampus);
+    })
     
     const [isClicked1, setClicked1] = useState(true);
     const [isClicked2, setClicked2] = useState(false);
@@ -139,7 +137,7 @@ export default function Settings() {
         } 
     };
 
-    const submitHandler = e => {
+    /*const submitHandler = e => {
     e.preventDefault();
     if (selectedInterests.length >= 1) {
         setInterest1(selectedInterests[0]);
@@ -186,7 +184,7 @@ export default function Settings() {
     axios.post('http://localhost:8080/settings', {firstName: firstName, lastName: lastName, email: email, age: age, gender: gender, img1: img1, img2: img2, img3: img3, uni: uni, major: major, bio: bio, social1: social1, social2: social2, social3: social3, username: username, password: password, job: job, location: location, horoscope: horoscope, religion: religion, orientation: orientation, interest1: interest1, interest2: interest2, interest3: interest3, minAge: minAge, maxAge: maxAge, minBudget: minBudget, maxBudget: maxBudget, stayLength: stayLength, amenity1: amenity1, amenity2: amenity2, amenity3: amenity3, pets: pets, guests: guests, parties: parties, sleep: sleep, homeTime: homeTime, cleanliness: cleanliness, study1: study1, study2: study2, smoker1: smoker1, smoker2: smoker2, drinker: drinker, trait1: trait1, trait2: trait2, trait3: trait3, music1: music1, music2: music2, music3: music3, hostScout: hostScout, onCampus: onCampus, prefLocation: prefLocation, prefGender: prefGender, prefReligion: prefReligion, prefOrientation: prefOrientation, prefSmoker1: prefSmoker1, prefSmoker2: prefSmoker2, prefDrinker: prefDrinker, prefCleanliness: prefCleanliness, prefPets: prefPets, prefSleep: prefSleep, prefHomeTime: prefHomeTime, prefStudy1: prefStudy1, prefStudy2: prefStudy2, prefGuests: prefGuests, prefParties: prefParties}).then((data) => {
         navigate('/profile');
     })
-}
+}*/
 
     return (
         <div className='flex flex-col mt-10 mx-48 h-screen'>
@@ -767,7 +765,7 @@ export default function Settings() {
 
                 <div className='flex w-96 justify-between mt-6 mb-14'>
                     <Link to='/profile'><button className='w-40 h-14 px-3 py-1 rounded-lg bg-theme-purple text-black' type='button'>Back</button></Link>
-                    <button className='w-40 h-14 px-3 py-1 rounded-lg bg-theme-purple text-black' type='button' onClick={submitHandler}>Save Changes</button>
+                    <button className='w-40 h-14 px-3 py-1 rounded-lg bg-theme-purple text-black' type='button' /*onClick={submitHandler}*/>Save Changes</button>
                 </div>
             </div>
         </div>
