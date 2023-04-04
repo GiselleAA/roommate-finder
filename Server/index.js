@@ -33,18 +33,23 @@ app.post('/register', (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const age = req.body.age;
+    const email = req.body.email;
     const gender = req.body.gender;
-    const img = req.body.img;
+    const img1 = req.body.img1;
     const uni = req.body.uni;
     const major = req.body.major;
+    const interest1 = req.body.interest1;
+    const interest2 = req.body.interest2;
+    const interest3 = req.body.interest3;
     const bio = req.body.bio;
     const username = req.body.username;
     const password = req.body.password;
-    db.query("INSERT INTO users (firstName, lastName, age, gender, img, uni, major, bio, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [firstName, lastName, age, gender, img, uni, major, bio, username, password], (err, result) => {
+
+    db.query("INSERT INTO users (firstName, lastName, age, email, gender, img1, uni, major, interest1, interest2, interest3, bio, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [firstName, lastName, age, email, gender, img1, uni, major, bio, interest1, interest2, interest3, username, password], (err, result) => {
         if (err)
             console.log(err);
         else
-            res.send({username: username});
+            res.json({'data': 'successful'});
     })
 })
 
@@ -86,6 +91,33 @@ app.post('/profile', (req, res) => {
                 hostScout: result[0].hostScout,
                 onCampus: result[0].onCampus
             });
+    })
+})
+
+app.post('/settings', (req, res) => {
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const age = req.body.age;
+    const email = req.body.email;
+    const gender = req.body.gender;
+    const img1 = req.body.img1;
+    const uni = req.body.uni;
+    const major = req.body.major;
+    const interest1 = req.body.interest1;
+    const interest2 = req.body.interest2;
+    const interest3 = req.body.interest3;
+    const bio = req.body.bio;
+    const username = req.body.username;
+    const password = req.body.password;
+    const [trait1, setTrait1] = req.body.trait1;
+    const [trait2, setTrait2] = req.body.trait2;
+    const [trait3, setTrait3] = req.body.trait3;
+
+    db.query("INSERT INTO users (firstName, lastName, age, email, gender, img1, uni, major, bio, username, password, interest1, interest2, interest3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [firstName, lastName, age, email, gender, img1, uni, major, bio, username, password, interest1, interest2, interest3], (err, result) => {
+        if (err)
+            console.log(err);
+        else
+            res.json({'data': 'successful'});
     })
 })
 

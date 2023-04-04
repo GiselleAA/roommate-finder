@@ -76,7 +76,7 @@ export default function Profile(){
             <div className="flex flex-col items-center justify-center text-center rounded-2xl w-1/3 h-20 bg-theme-orange">
                 <p className="text-3xl">{firstName}</p>
                 <p className="text-lg">{text}</p>
-                <button className={`h-20 w-20 absolute left-2/3 ${isAuth /*pull profile id from db and compare*/ ? 'visbile' : 'invisible'}`}>
+                <button className={'h-20 w-20 absolute left-2/3'}>
                     <Link to='/settings'><img src="images/cog.png" alt="" /></Link>
                 </button>
             </div>
