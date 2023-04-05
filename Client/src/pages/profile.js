@@ -34,7 +34,6 @@ export default function Profile(){
     const [music1, setMusic1] = useState('');
     const [hostScout, setHostScout] = useState('');
     const [onCampus, setOnCampus] = useState('');
-
     const text = hostScout ? "Host" : "Scout";
 
     const [requestMade, setRequestMade] = useState(false);
