@@ -19,12 +19,11 @@ function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [step, setStep] = useState(1);
-    const [trait1, setTrait1] = useState('');
-    const [trait2, setTrait2] = useState('');
-    const [trait3, setTrait3] = useState('');
-
     const [selectedInterests, setSelectedInterests] = useState([]);
-    const handleInterestClick = (interest) => {
+    const [requestMade, setRequestMade] = useState(false);
+
+    const handleInterestClick = (interest, e) => {
+        e.preventDefault();
         if (selectedInterests.includes(interest)) {
             setSelectedInterests(selectedInterests.filter((g) => g !== interest));
         } 
@@ -33,7 +32,7 @@ function Register() {
         }
     };
 
-    const submitHandler = e => {
+    const SubmitHandler = e => {
     if (selectedInterests.length >= 1) {
         setInterest1(selectedInterests[0]);
     }
@@ -43,25 +42,21 @@ function Register() {
     if (selectedInterests.length >= 3) {
         setInterest3(selectedInterests[2]);
     }
+    console.log(selectedInterests[1]+selectedInterests[2]+selectedInterests[3]);
     e.preventDefault();
-    axios.post('http://localhost:8080/register', {firstName: firstName, lastName: lastName, gender: gender, age: age, email: email, img1: img1, uni: uni, major: major, interest1: interest1, interest2: interest2, interest3: interest3, bio: bio, username: username, password: password, trait1: trait1, trait2: trait2, trait3: trait3}).then((data) => {
-    setFirst('');
-    setLast('');
-    setAge('');
-    setEmail('');
-    setGender('');
-    setImg1('');
-    setUni('');
-    setMajor('');
-    setBio('');
-    setUsername('');
-    setPassword('');
-    setTrait1('');
-    setTrait2('');
-    setTrait3('');
-    navigate('/profile');
+
+    if (!requestMade) {
+    axios.post('http://localhost:8080/register', {firstName: firstName, lastName: lastName, gender: gender, age: age, email: email, img1: img1, uni: uni, major: major, interest1: interest1, interest2: interest2, interest3: interest3, bio: bio, username: username, password: password}).then((data) => {
+    //navigate('/signin');
+    setRequestMade(true);
+    console.log(JSON.stringify(data));
     })
+    .catch(error => {
+        console.log(error);
+    });
+    }   
 }
+
 
     const handlePress = p =>{
         setStep(step + 1);
@@ -71,7 +66,7 @@ function Register() {
         <div className="flex justify-center">
             <div className="w-full max-w-md">
             {step === 1 && (<div style={{ animation: 'slide-in-right 0.5s ease' }}>
-                <form className='mx-auto px-5 pt-5 pb-3  rounded-2xl bg-theme-orange w-72 mt-36' onSubmit={submitHandler}>
+                <form className='mx-auto px-5 pt-5 pb-3  rounded-2xl bg-theme-orange w-72 mt-36' onSubmit={SubmitHandler}>
                     <h3 className='text-3xl pb-4'>Create Account</h3>
                     <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='username' type='text' placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='password' type='password' placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -98,7 +93,7 @@ function Register() {
                             </select>
                             <select className='text-gray-400 h-9 px-3 mb-4 rounded-lg focus:outline-none' id='age' value={age} onChange={(e) => setAge(e.target.value)}>
                                 <option value=''>Select</option>
-                                {Array.from({length: 100}, (_, i) => i + 1).map((age) => (
+                                {Array.from({length: 23}, (_, i) => i + 18).map((age) => (
                                 <option key={age} value={age}>{age}</option>
                                 ))}
                     </select>                       
@@ -158,98 +153,98 @@ function Register() {
                 </div>)}
                 {step === 4 && (
                     <div style={{ animation: 'slide-in-right 0.5s ease' }}>
-                        <form className='flex flex-col mx-auto px-6 pt-6 pb-3 rounded-2xl bg-theme-orange w-[550px] mt-36' onSubmit={submitHandler}>
+                        <form className='flex flex-col mx-auto px-6 pt-6 pb-3 rounded-2xl bg-theme-orange w-[550px] mt-36'>
                             <div className='flex flex-col mr-3'>
                                 <h3 className='text-3xl pb-3'>Interests</h3>
                                 <div className='grid grid-cols-4 gap-x-2 gap-y-2 justify-center text-center mb-3'>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Parties') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Parties')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Parties') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Parties', e)}>
                         Parties
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Movies') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Movies')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Movies') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Movies', e)}>
                         Movies
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Cooking') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Cooking')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Cooking') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Cooking', e)}>
                         Cooking
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Art') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Art')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Art') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Art', e)}>
                         Art
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Concerts') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Concerts')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Concerts') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Concerts', e)}>
                         Concerts
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Baking') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Baking')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Baking') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Baking', e)}>
                         Baking
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Shows') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Shows')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Shows') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Shows', e)}>
                         Shows
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Music') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Music')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Music') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Music', e)}>
                         Music
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Tech') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Tech')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Tech') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Tech', e)}>
                         Tech
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Reading') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Reading')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Reading') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Reading', e)}>
                         Reading
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Vegetarian') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Vegetarian')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Vegetarian') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Vegetarian', e)}>
                         Vegetarian
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Vegan') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Vegan')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Vegan') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Vegan', e)}>
                         Vegan
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Sports') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Sports')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Sports') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Sports', e)}>
                         Sports
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('DIY Crafts') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('DIY Crafts')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('DIY Crafts') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('DIY Crafts', e)}>
                         DIY Crafts
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Gaming') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Gaming')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Gaming') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Gaming', e)}>
                         Gaming
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Athlete') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Athlete')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Athlete') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Athlete', e)}>
                         Athlete
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Photography') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Photography')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Photography') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Photography', e)}>
                         Photography
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Gym') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Gym')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Gym') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Gym', e)}>
                         Gym
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Cars') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Cars')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Cars') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Cars', e)}>
                         Cars
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Astrology') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Astrology')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Astrology') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Astrology', e)}>
                         Astrology
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Thrifting') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Thrifting')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Thrifting') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Thrifting', e)}>
                         Thrifting
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Knitting') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Knitting')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Knitting') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Knitting', e)}>
                         Knitting
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Writing') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Writing')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Writing') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Writing', e)}>
                         Writing
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Crocheting') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Crocheting')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Crocheting') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Crocheting', e)}>
                         Crocheting
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Dance') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Dance')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Dance') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Dance', e)}>
                         Dance
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Anime') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Anime')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Anime') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Anime', e)}>
                         Anime
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Instruments') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Instruments')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Instruments') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Instruments', e)}>
                         Instruments
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Adrenaline') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Adrenaline')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Adrenaline') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Adrenaline', e)}>
                         Adrenaline
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Exploration') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Exploration')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Exploration') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Exploration', e)}>
                         Exploration
                     </button>
-                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Hiking') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={() => handleInterestClick('Hiking')}>
+                    <button className={`px-4 py-3 rounded-2xl text-sm ${selectedInterests.includes('Hiking') ? 'bg-theme-purple text-white' : 'bg-gray-200 text-gray-700'}`} onClick={(e) => handleInterestClick('Hiking', e)}>
                         Hiking
                     </button>
                 </div>                            
@@ -261,7 +256,7 @@ function Register() {
                     </div>)}
                 {step === 5 && (
                     <div style={{ animation: 'slide-in-right 0.5s ease' }}>
-                        <form className='flex flex-col mx-auto px-6 pt-6 pb-3 rounded-2xl bg-theme-orange w-96 mt-36' onSubmit={submitHandler}>
+                        <form className='flex flex-col mx-auto px-6 pt-6 pb-3 rounded-2xl bg-theme-orange w-96 mt-36' onSubmit={SubmitHandler}>
                             <div className='flex flex-col mr-3'>
                                 <h3 className='text-3xl pb-1'>Add a bio</h3>
                                 <h3 className='text-md pb-2'>Describe yourself and what you're looking for in a roommate</h3>

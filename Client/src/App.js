@@ -17,8 +17,8 @@ function App() {
         <button className='h-16 w-12 bg-gray-300'>&lt;</button>
       </div>
       <div className='flex flex-col w-full rounded-xl bg-theme-purple'>
-        <div className='flex justify-center px-1 pt-1'>
-          <img className='h-20 w-20 rounded-xl' src="images/girl.png" alt="" />
+        <div className='flex justify-center px-5 pt-5 w-full h-80'>
+          <img className='rounded-xl' src="images/girl.png" alt="" />
         </div>
         <div>
           <p className='flex justify-center text-3xl py-1'>Fake Name</p>
