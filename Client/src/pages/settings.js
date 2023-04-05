@@ -308,7 +308,7 @@ export default function Settings() {
                         <option value='Buddhism'>Buddhism</option>
                         <option value='Indigenous'>Indigenous</option>
                         <option value='Other'>Other</option>
-                        <option value='Irreligious '>Irreligious</option>
+                        <option value='Atheist '>Atheist</option>
                     </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Religion</p>
                 </div>
