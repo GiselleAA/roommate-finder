@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     return (
-        <nav className='flex justify-between w-full h-16 py-2 text-black px-28'>
+        <nav className=' flex justify-between w-full h-16 py-2 text-black px-28 '>
             <ul className='flex justify-start'>
                 <li>
                     <Link to='/'><img src="images/palm-logo.png" width={50} height={50} alt="logo" /></Link>
