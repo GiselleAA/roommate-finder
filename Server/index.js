@@ -45,11 +45,24 @@ app.post('/register', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    db.query("INSERT INTO users (firstName, lastName, age, email, gender, img1, uni, major, interest1, interest2, interest3, bio, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [firstName, lastName, age, email, gender, img1, uni, major, bio, interest1, interest2, interest3, username, password], (err, result) => {
+    db.query("INSERT INTO users (firstName, lastName, gender, age, email, img1, uni, major, bio, username, password, interest1, interest2, interest3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [firstName, lastName, gender, age, email, img1, uni, major, bio, username, password, interest1, interest2, interest3], (err, result) => {
         if (err)
             console.log(err);
-        else
-            res.json({'data': 'successful'});
+        else 
+            res.json({
+                firstName: result[0].firstName,
+                lastName: result[0].lastName,
+                age: result[0].age,
+                gender: result[0].gender,
+                email: result[0].email,
+                img1: result[0].img1,
+                uni: result[0].uni,
+                major: result[0].major,
+                bio: result[0].bio,
+                interest1: result[0].interest1,
+                interest2: result[0].interest2,
+                interest3: result[0].interest3
+            });
     })
 })
 

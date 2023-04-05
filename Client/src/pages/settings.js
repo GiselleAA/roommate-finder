@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -18,10 +18,17 @@ export default function Settings() {
     const [horoscope, setHoroscope] = useState('');
     const [religion, setReligion] = useState('');
     const [orientation, setOrientation] = useState('');
-    const [minAge, setMinAge] = useState('');
-    const [minBudget, setMinBudget] = useState('');
+    const [interest1, setInterest1] = useState('');
+    const [interest2, setInterest2] = useState('');
+    const [interest3, setInterest3] = useState('');
+    const [ageRange, setAgeRange] = useState('');
+    const [budget, setBudget] = useState('');
     const [stayLength, setStayLength] = useState('');
-    const [amenities, setAmenities] = useState('');
+    const [moveWithin, setMoveWithin] = useState('');
+    const [amenity1, setAmenity1] = useState('');
+    const [amenity2, setAmenity2] = useState('');
+    const [amenity3, setAmenity3] = useState('');
+    const [amenity4, setAmenity4] = useState('');
     const [pets, setPets] = useState('');
     const [guests, setGuests] = useState('');
     const [parties, setParties] = useState('');
@@ -29,13 +36,18 @@ export default function Settings() {
     const [homeTime, setHomeTime] = useState('');
     const [cleanliness, setCleanliness] = useState('');
     const [study1, setStudy1] = useState('');
+    const [study2, setStudy2] = useState('');
     const [smoker1, setSmoker1] = useState('');
+    const [smoker2, setSmoker2] = useState('');
     const [drinker, setDrinker] = useState('');
     const [trait1, setTrait1] = useState('');
     const [music1, setMusic1] = useState('');
     const [hostScout, setHostScout] = useState('');
     const [onCampus, setOnCampus] = useState('');
+    const [requestMade, setRequestMade] = useState(false);
 
+useEffect(() => {
+    if (!requestMade) {
     axios.post('http://localhost:8080/profile', {id: isAuth}).then((response) => {
         console.log(JSON.stringify(response.data));
         setFirst(response.data.firstName);
@@ -50,10 +62,16 @@ export default function Settings() {
         setHoroscope(response.data.horoscope);
         setReligion(response.data.religion);
         setOrientation(response.data.orientation);
-        setMinAge(response.data.minAge);
-        setMinBudget(response.data.minBudget);
+        setInterest1(response.data.interest1);
+        setInterest2(response.data.interest2);
+        setInterest3(response.data.interest3);
+        setAgeRange(response.data.ageRange);
+        setBudget(response.data.budget);
         setStayLength(response.data.stayLength);
-        setAmenities(response.data.amenities);
+        setAmenity1(response.data.amenity1);
+        setAmenity2(response.data.amenity2);
+        setAmenity3(response.data.amenity3);
+        setAmenity4(response.data.amenity4);
         setPets(response.data.pets);
         setGuests(response.data.guests);
         setParties(response.data.parties);
@@ -61,13 +79,21 @@ export default function Settings() {
         setHomeTime(response.data.homeTime);
         setCleanliness(response.data.cleanliness);
         setStudy1(response.data.study1);
+        setStudy2(response.data.study1);
         setSmoker1(response.data.smoker1);
+        setSmoker2(response.data.smoker1);
         setDrinker(response.data.drinker);
         setTrait1(response.data.trait1);
         setMusic1(response.data.music1);
         setHostScout(response.data.hostScout); //show rules and room info if true
         setOnCampus(response.data.onCampus);
+        setRequestMade(true);
     })
+    .catch(error => {
+        console.log(error);
+    });
+    }
+}, [requestMade]);
 
     const [isClicked1, setClicked1] = useState(!hostScout);
     const [isClicked2, setClicked2] = useState(hostScout);
@@ -77,22 +103,22 @@ export default function Settings() {
     const handleClick1 = () => {
         setClicked1(true);
         setClicked2(false);
-        setHostScout('host');
+        setHostScout(!hostScout);
     };
     const handleClick2 = () => {
         setClicked1(false);
         setClicked2(true);
-        setHostScout('scout');
+        setHostScout(!hostScout);
     };
     const handleClick3 = () => {
         setClicked3(true);
         setClicked4(false);
-        setOnCampus(true);
+        setOnCampus(!onCampus);
     };
     const handleClick4 = () => {
         setClicked3(false);
         setClicked4(true);
-        setOnCampus(false);
+        setOnCampus(!onCampus);
     };
 
     const [selectedInterests, setSelectedInterests] = useState([]);
@@ -277,8 +303,8 @@ export default function Settings() {
                     <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='job' type='text' value={job} onChange={(e) => setJob(e.target.value)}/>
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
-                    <p className='p-3 w-30 h-12 bg-theme-gray text-white'>Current Zip</p>
-                    <input className='px-3 py-2 w-[377px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='location' type='text' value={location} onChange={(e) => setLocation(e.target.value)}/>
+                    <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Living in</p>
+                    <input className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='location' type='text' value={location} onChange={(e) => setLocation(e.target.value)}/>
                 </div>
                 <div className='flex justify-center flex-row text-center mt-5 ml-[210px]'>
                     <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='horoscope' type='text' value={horoscope} onChange={(e) => setHoroscope(e.target.value)}>
@@ -547,8 +573,8 @@ export default function Settings() {
                 </div>
                 <p className='flex justify-center text-4xl my-5'>Logistics</p>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}>
-                        <option value=''>{minBudget}</option>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='budget' type='text' value={budget} onChange={(e) => setBudget(e.target.value)}>
+                        <option value=''>{budget}</option>
                         <option value='Under $1000'>Under $1000</option>
                         <option value='$1000-$2000'>$1000-$2000</option>
                         <option value='$2000-$3000'>$2000-$3000</option>
@@ -557,8 +583,8 @@ export default function Settings() {
                     <p className='p-3 w-[102px] h-12 bg-theme-gray text-white'>Budget</p>
                 </div>
                 <div className='flex justify-center flex-row text-center ml-[211px]'>
-                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)}>
-                        <option value=''>{minAge}</option>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='ageRange' type='text' value={ageRange} onChange={(e) => setAgeRange(e.target.value)}>
+                        <option value=''>{ageRange}</option>
                         <option value='18-22'>18-22</option> 
                         <option value='18-22'>18-22</option> 
                         <option value='30+'>30+</option> 
@@ -566,7 +592,7 @@ export default function Settings() {
                     <p className='p-3 w-30 h-12 bg-theme-gray text-white'>Age Range</p>                
                 </div>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <select className='px-3 py-2 w-[359px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}>
+                    <select className='px-3 py-2 w-[359px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='moveWithin' type='text' value={moveWithin} onChange={(e) => setMoveWithin(e.target.value)}>
                         <option value=''>{stayLength}</option>
                         <option value='ASAP'>ASAP</option>
                         <option value='1 Month'>1 Month</option>
@@ -576,7 +602,7 @@ export default function Settings() {
                     <p className='p-3 w-32 h-12 bg-theme-gray text-white'>Move Within</p>
                 </div>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <select className='px-3 py-2 w-[359px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                    <select className='px-3 py-2 w-[359px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='stayLength' type='text' value={stayLength} onChange={(e) => setStayLength(e.target.value)}>
                         <option value=''>{stayLength}</option>
                         <option value='3 Months'>3 Months</option>
                         <option value='6 Months'>6 Months</option>
@@ -667,7 +693,7 @@ export default function Settings() {
                 <p className='flex justify-center text-2xl my-2'>Rules</p>
                 <div className='flex justify-center flex-row text-center mr-40'>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Pets</p>
-                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)}>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='pets' type='text' value={pets} onChange={(e) => setPets(e.target.value)}>
                         <option value=''>{pets}</option>
                         <option value='Small Animals'>Small Animals</option>
                         <option value='Large Animals'>Large Animals</option>
@@ -676,7 +702,7 @@ export default function Settings() {
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Guests</p>
-                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='guests' type='text' value={guests} onChange={(e) => setGuests(e.target.value)}>
                         <option value=''>{guests}</option>
                         <option value='Often'>Often</option>
                         <option value='Sometimes'>Sometimes</option>
@@ -685,7 +711,7 @@ export default function Settings() {
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Parties</p>
-                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='parties' type='text' value={parties} onChange={(e) => setParties(e.target.value)}>
                         <option value=''>{parties}</option>
                         <option value='Often'>Often</option>
                         <option value='Sometimes'>Sometimes</option>
@@ -695,7 +721,7 @@ export default function Settings() {
 
                 <p className='flex justify-center text-4xl my-5'>Lifestyle</p>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
-                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='age' type='text' value={age} onChange={(e) => setAge(e.target.value)}>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='sleep' type='text' value={sleep} onChange={(e) => setSleep(e.target.value)}>
                         <option value=''>{sleep}</option>
                         <option value='Early Bird'>Early Bird</option>
                         <option value='Night Owl'>Night Owl</option>
@@ -703,7 +729,7 @@ export default function Settings() {
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Sleep</p>                
                 </div>
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
-                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='gender' type='text' value={gender} onChange={(e) => setGender(e.target.value)}>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='homeTime' type='text' value={homeTime} onChange={(e) => setHomeTime(e.target.value)}>
                         <option value=''>{homeTime}</option>
                         <option value='Often'>Often</option>
                         <option value='Not Often'>Not Often</option>
@@ -712,7 +738,7 @@ export default function Settings() {
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>At Home</p>
                 </div>
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
-                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='uni' type='text' value={uni} onChange={(e) => setUni(e.target.value)}>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='cleanliness' type='text' value={cleanliness} onChange={(e) => setCleanliness(e.target.value)}>
                         <option value=''>{cleanliness}</option>
                         <option value='High'>High</option>
                         <option value='Medium'>Medium</option>
@@ -722,12 +748,12 @@ export default function Settings() {
                 </div>
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
                     <div className='flex flex-col'>
-                        <select className='px-3 py-2 w-[367px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                        <select className='px-3 py-2 w-[367px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='study1' type='text' value={study1} onChange={(e) => setStudy1(e.target.value)}>
                             <option value=''>{study1}</option>
                             <option value='Quiet'>Quiet</option>
                             <option value='Noise'>Noise</option>
                         </select>
-                        <select className='px-3 py-2 w-[367px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                        <select className='px-3 py-2 w-[367px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='study2' type='text' value={study2} onChange={(e) => setStudy2(e.target.value)}>
                             <option value=''>{study1}</option>
                             <option value='Alone'>Alone</option>
                             <option value='With Others'>With Others</option>
@@ -737,14 +763,14 @@ export default function Settings() {
                 </div>
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
                     <div className='flex flex-col'> 
-                        <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                        <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='smoker1' type='text' value={smoker1} onChange={(e) => setSmoker1(e.target.value)}>
                             <option value=''>{smoker1}</option>
                             <option value='Vape'>Vape</option>
                             <option value='Weed'>Weed</option>
                             <option value='Tobacco'>Tobacco</option>
                             <option value='None'>None</option>
                         </select>
-                        <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                        <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='smoker2' type='text' value={smoker2} onChange={(e) => setSmoker2(e.target.value)}>
                             <option value=''>{smoker1}</option>
                             <option value='Often'>Often</option>
                             <option value='Sometimes'>Sometimes</option>
@@ -753,7 +779,7 @@ export default function Settings() {
                     <p className='p-3 w-24 h-[108px] bg-theme-gray text-white'>Smoking</p>                
                 </div>
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
-                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='major' type='text' value={major} onChange={(e) => setMajor(e.target.value)}>
+                    <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='drinker' type='text' value={drinker} onChange={(e) => setDrinker(e.target.value)}>
                         <option value=''>{drinker}</option>
                         <option value='Often'>Often</option>
                         <option value='Sometimes'>Sometimes</option>

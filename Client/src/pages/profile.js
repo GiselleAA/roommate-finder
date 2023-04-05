@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Profile(){
     const isAuth = window.localStorage.getItem('isAuth');
@@ -37,6 +37,9 @@ export default function Profile(){
 
     const text = hostScout ? "Host" : "Scout";
 
+    const [requestMade, setRequestMade] = useState(false);
+    useEffect(() => {
+        if (!requestMade) {
     axios.post('http://localhost:8080/profile', {id: isAuth}).then((response) => {
         console.log(JSON.stringify(response.data));
         setFirst(response.data.firstName);
@@ -69,7 +72,13 @@ export default function Profile(){
         setMusic1(response.data.music1);
         setHostScout(response.data.hostScout); //show rules and room info if true
         setOnCampus(response.data.onCampus);
+        setRequestMade(true);
     })
+    .catch(error => {
+        console.log(error);
+    });
+    }
+}, [requestMade]);
 
     return (
         <div className="flex flex-col items-center justify-center mt-10 mx-48">
@@ -93,6 +102,7 @@ export default function Profile(){
                             {uni && <p className="text-xl">College: {uni}</p>}
                             {major && <p className="text-xl">Major: {major}</p>}
                             {job && <p className="text-xl">Job: {job}</p>}
+                            {location && <p className="text-xl">Living in: {location}</p>}
                         </div>
                     </div>
                     <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-orange">
