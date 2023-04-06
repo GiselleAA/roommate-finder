@@ -40,7 +40,6 @@ export default function Profile(){
     useEffect(() => {
         if (!requestMade) {
     axios.post('http://localhost:8080/profile', {id: isAuth}).then((response) => {
-        console.log(JSON.stringify(response.data));
         setFirst(response.data.firstName);
         setLast(response.data.lastName);
         setAge(response.data.age);

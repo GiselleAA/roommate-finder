@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const cors  = require('cors');
 const mysql = require('mysql');
+const fs = require('fs');
 
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 const db = mysql.createConnection({
     host: "sql9.freesqldatabase.com",
@@ -15,6 +16,22 @@ const db = mysql.createConnection({
 })
 
 module.exports = db;
+
+app.post('/nav', (req, res) => {
+    const id = req.body.id;
+    db.query("SELECT img1 FROM users WHERE id = ? ", id, (err, result) => {
+        if (err)
+            console.log(err);
+        if (result.length === 0)
+            res.json({ data: 'false' });
+        else {
+            const imgData = result[0].img1;
+            const base64String = Buffer.from(imgData).toString('base64');
+            res.set('Content-Type', 'image/png');
+            res.send(Buffer.from(base64String, 'base64'));
+        }
+    });
+});
 
 app.post('/signin', (req, res) => {
     const username = req.body.username;
@@ -44,25 +61,15 @@ app.post('/register', (req, res) => {
     const bio = req.body.bio;
     const username = req.body.username;
     const password = req.body.password;
+    const location = req.body.location;
 
-    db.query("INSERT INTO users (firstName, lastName, gender, age, email, img1, uni, major, bio, username, password, interest1, interest2, interest3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [firstName, lastName, gender, age, email, img1, uni, major, bio, username, password, interest1, interest2, interest3], (err, result) => {
-        if (err)
+    db.query("INSERT INTO users (firstName, lastName, gender, age, email, img1, uni, major, bio, username, password, location, interest1, interest2, interest3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [firstName, lastName, gender, age, email, img1, uni, major, bio, username, password, location, interest1, interest2, interest3], (err, result) => {
+        if (err) {
             console.log(err);
+            res.status(500).json({ error: "Username Taken" });
+        }
         else 
-            res.json({
-                firstName: result[0].firstName,
-                lastName: result[0].lastName,
-                age: result[0].age,
-                gender: result[0].gender,
-                email: result[0].email,
-                img1: result[0].img1,
-                uni: result[0].uni,
-                major: result[0].major,
-                bio: result[0].bio,
-                interest1: result[0].interest1,
-                interest2: result[0].interest2,
-                interest3: result[0].interest3
-            });
+            res.json({'data':'successful'});
     })
 })
 
@@ -122,9 +129,9 @@ app.post('/settings', (req, res) => {
     const bio = req.body.bio;
     const username = req.body.username;
     const password = req.body.password;
-    const [trait1, setTrait1] = req.body.trait1;
-    const [trait2, setTrait2] = req.body.trait2;
-    const [trait3, setTrait3] = req.body.trait3;
+    const trait1 = req.body.trait1;
+    const trait2 = req.body.trait2;
+    const trait3 = req.body.trait3;
 
     db.query("INSERT INTO users (firstName, lastName, age, email, gender, img1, uni, major, bio, username, password, interest1, interest2, interest3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [firstName, lastName, age, email, gender, img1, uni, major, bio, username, password, interest1, interest2, interest3], (err, result) => {
         if (err)

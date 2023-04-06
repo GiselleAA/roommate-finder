@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ function Register() {
     const [email, setEmail] = useState('');
     const [gender, setGender] = useState('');
     const [img1, setImg1] = useState('');
+    const [location, setLocation] = useState('');
     const [uni, setUni] = useState('');
     const [major, setMajor] = useState('');
     const [interest1, setInterest1] = useState('');
@@ -21,16 +22,65 @@ function Register() {
     const [step, setStep] = useState(1);
     const [selectedInterests, setSelectedInterests] = useState([]);
     const [requestMade, setRequestMade] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        if (selectedInterests.length >= 1)
+            setInterest1(selectedInterests[0]);
+        else
+            setInterest1('');
+        
+        if (selectedInterests.length >= 2)
+            setInterest2(selectedInterests[1]);
+        else
+            setInterest2('');
+        
+        if (selectedInterests.length >= 3)
+            setInterest3(selectedInterests[2]);
+        else
+            setInterest3('');
+        
+    }, [selectedInterests]);
 
     const handleInterestClick = (interest, e) => {
         e.preventDefault();
-        if (selectedInterests.includes(interest)) {
+        if (selectedInterests.includes(interest))
             setSelectedInterests(selectedInterests.filter((g) => g !== interest));
-        } 
-        else if (selectedInterests.length < 3) {
+        else if (selectedInterests.length < 3)
             setSelectedInterests([...selectedInterests, interest]);
-        }
     };
+
+    const handleImage = (img) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = () => {
+            const img = new Image();
+            img.src = reader.result;
+            img.onload = () => {
+                const width = img.width;
+                const height = img.height;
+                const maxWidth = 445;
+                const maxHeight = 445;
+                let newWidth = width;
+                let newHeight = height;
+                if (width > height && width > maxWidth) {
+                    newWidth = maxWidth;
+                    newHeight = Math.round((height * maxWidth) / width);
+                } 
+                else if (height > width && height > maxHeight) {
+                    newHeight = maxHeight;
+                    newWidth = Math.round((width * maxHeight) / height);
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = newWidth;
+                canvas.height = newHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                const dataURL = canvas.toDataURL(img.type);
+                setImg1(dataURL);
+        };
+    };
+};
 
     const SubmitHandler = e => {
     if (selectedInterests.length >= 1) {
@@ -42,21 +92,20 @@ function Register() {
     if (selectedInterests.length >= 3) {
         setInterest3(selectedInterests[2]);
     }
-    console.log(selectedInterests[1]+selectedInterests[2]+selectedInterests[3]);
-    e.preventDefault();
 
+    e.preventDefault();
     if (!requestMade) {
-    axios.post('http://localhost:8080/register', {firstName: firstName, lastName: lastName, gender: gender, age: age, email: email, img1: img1, uni: uni, major: major, interest1: interest1, interest2: interest2, interest3: interest3, bio: bio, username: username, password: password}).then((data) => {
-    //navigate('/signin');
+    axios.post('http://localhost:8080/register', {firstName: firstName, lastName: lastName, gender: gender, age: age, email: email, img1: img1, uni: uni, major: major, interest1: interest1, interest2: interest2, interest3: interest3, bio: bio, username: username, password: password, location: location}).then((data) => {
+    navigate('/signin');
     setRequestMade(true);
     console.log(JSON.stringify(data));
     })
     .catch(error => {
-        console.log(error);
+        setErrorMessage("Username Taken or Empty Password");
+        setStep(1);
     });
     }   
 }
-
 
     const handlePress = p =>{
         setStep(step + 1);
@@ -66,8 +115,9 @@ function Register() {
         <div className="flex justify-center">
             <div className="w-full max-w-md">
             {step === 1 && (<div style={{ animation: 'slide-in-right 0.5s ease' }}>
-                <form className='mx-auto px-5 pt-5 pb-3  rounded-2xl bg-theme-orange w-72 mt-36' onSubmit={SubmitHandler}>
-                    <h3 className='text-3xl pb-4'>Create Account</h3>
+                <form className='mx-auto px-5 pt-5 pb-3 rounded-2xl bg-theme-orange w-72 mt-36' onSubmit={SubmitHandler}>
+                    <h3 className={`text-3xl ${errorMessage ? '' : 'pb-3'}`}>Create Account</h3>
+                    {errorMessage && <h3 className='text-lg text-red-800 py-1'>{errorMessage}</h3>}
                     <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='username' type='text' placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='password' type='password' placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='email' type='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -79,7 +129,7 @@ function Register() {
                 {step === 2 && (<div style={{ animation: 'slide-in-right 0.5s ease' }}>
                     <form className='mx-auto w-80 px-6 pt-6 pb-3 rounded-2xl bg-theme-orange mt-36'>
                         <div className='flex flex-col mr-3'>
-                            <h3 className='text-3xl pb-4'>Basic Information</h3>
+                            <h3 className='text-3xl pb-3'>Basic Information</h3>
                             <input className='h-9 px-3 py-2 mb-4 rounded-lg focus:outline-none' id='firstName' type='text' placeholder="First Name" value={firstName} onChange={(e) => setFirst(e.target.value)} />
                             <input className='h-9 px-3 py-2 mb-4 rounded-lg focus:outline-none' id='lastName' type='text' placeholder="Last Name" value={lastName} onChange={(e) => setLast(e.target.value)} />
                             <select className='text-gray-400 h-9 px-3 mb-4 rounded-lg focus:outline-none' id='gender' value={gender} onChange={(e) => setGender(e.target.value)}>
@@ -96,14 +146,30 @@ function Register() {
                                 {Array.from({length: 23}, (_, i) => i + 18).map((age) => (
                                 <option key={age} value={age}>{age}</option>
                                 ))}
-                    </select>                       
+                            </select>
+                            <input className='h-9 px-3 py-2 mb-4 rounded-lg focus:outline-none' id='location' type='text' placeholder="Current City" value={location} onChange={(e) => setLocation(e.target.value)} />                    
                         </div>
                         <div className='flex justify-center'>
                             <button className='px-3 py-1 rounded-lg bg-theme-purple text-black mb-1' type='button' onClick={handlePress}>Next</button>
                         </div>
                     </form>
                 </div>)}
-                {step === 3 && (
+                {step === 3 && (<div style={{ animation: 'slide-in-right 0.5s ease' }}>
+                    <form className='mx-auto w-80 px-6 pt-6 pb-3 rounded-2xl bg-theme-orange mt-36'>
+                        <div className='flex flex-col mr-3'>
+                            <h3 className='text-3xl pb-2'>Add a<br></br>Profile Picture</h3>
+                            <div className='flex w-[222px] h-[222px] ml-4 mb-3 justify-center items-center'>
+                                {!img1 && <img src="images/blank.png" alt="" />}
+                                {img1 && <img src={img1} alt="" />}
+                            </div>
+                            <input type="file" onChange={(e) => handleImage(e.target.files[0])}/>
+                        </div>
+                        <div className='flex justify-center mt-4'>
+                            <button className='px-3 py-1 rounded-lg bg-theme-purple text-black mb-1' type='button' onClick={handlePress}>Next</button>
+                        </div>
+                    </form>
+                </div>)}
+                {step === 4 && (
                     <div style={{ animation: 'slide-in-right 0.5s ease' }}>
                     <form className='flex flex-col mx-auto px-6 pt-6 pb-3 rounded-2xl bg-theme-orange w-80 mt-36'>
                         <div className='flex flex-col mr-3'>
@@ -151,7 +217,7 @@ function Register() {
                         </div>
                     </form>
                 </div>)}
-                {step === 4 && (
+                {step === 5 && (
                     <div style={{ animation: 'slide-in-right 0.5s ease' }}>
                         <form className='flex flex-col mx-auto px-6 pt-6 pb-3 rounded-2xl bg-theme-orange w-[550px] mt-36'>
                             <div className='flex flex-col mr-3'>
@@ -254,7 +320,7 @@ function Register() {
                             </div>
                         </form>
                     </div>)}
-                {step === 5 && (
+                {step === 6 && (
                     <div style={{ animation: 'slide-in-right 0.5s ease' }}>
                         <form className='flex flex-col mx-auto px-6 pt-6 pb-3 rounded-2xl bg-theme-orange w-96 mt-36' onSubmit={SubmitHandler}>
                             <div className='flex flex-col mr-3'>

@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+
 export default function Search() {
     const college = window.sessionStorage.getItem('college');
     const [requestMade, setRequestMade] = useState(false);
