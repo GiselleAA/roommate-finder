@@ -27,19 +27,19 @@ export default function Navbar() {
                 </li>
                 <li className='text-xl pt-5 font-bold'>Roommate Finder</li>
             </ul>
-            <div className='h-9 w-[120px]'>
+            <div className='h-9 w-[120px] translate-y-2'>
                 <Link to='/signin'>
                     <button className={`flex items-center justify-center h-full w-full text-white rounded-lg bg-theme-orange ${JSON.parse(window.localStorage.getItem('isAuth')) ? 'visible' : ''}  type='button'`}>
-                    Login/Register
+                        Login/Register
                     </button>
                 </Link>
-                <button className={`w-12 h-12 overflow-hidden rounded-full -ml-28 ${JSON.parse(window.localStorage.getItem('isAuth')) ? 'invisible' : 'invisible'}  type='button'`}>
+                <button className={`w-12 h-12 overflow-hidden rounded-full -ml-28 ${JSON.parse(window.localStorage.getItem('isAuth')) ? 'visible' : 'invisible'}  type='button'`}>
                     <Link to='/profile'>
                         {!img1 && <img src="images/blank.png" alt=""/>}
                         {img1 && <img src={img1} alt=""/>}
                     </Link>
                 </button>
-                <button className={`w-12 h-12 overflow-hidden rounded-full bg-theme-blue ml-4 ${JSON.parse(window.localStorage.getItem('isAuth')) ? 'invisible' : 'visible'}  type='button'`}>
+                <button className={`w-12 h-12 overflow-hidden rounded-full bg-theme-blue ml-4 ${JSON.parse(window.localStorage.getItem('isAuth')) ? 'visible' : 'visible'}  type='button'`}>
                     <Link to='/messages'><img className='mx-auto mt-1 w-5/6 h-5/6 object-cover object-center' src="images/msg.png" alt="" /></Link>
                 </button>
             </div>

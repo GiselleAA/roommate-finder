@@ -696,7 +696,7 @@ useEffect(() => {
                         <option value=''>{pets}</option>
                         <option value='Small Animals'>Small Animals</option>
                         <option value='Large Animals'>Large Animals</option>
-                        <option value='Not Allowed'>Not Allowed</option>
+                        <option value='No Pets'>No Pets</option>
                     </select>
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
@@ -739,9 +739,9 @@ useEffect(() => {
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
                     <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='cleanliness' type='text' value={cleanliness} onChange={(e) => setCleanliness(e.target.value)}>
                         <option value=''>{cleanliness}</option>
-                        <option value='High'>High</option>
-                        <option value='Medium'>Medium</option>
-                        <option value='Low'>Low</option>
+                        <option value='Clean Freak'>Clean Freak</option>
+                        <option value='Clean Enough'>Clean Enough</option>
+                        <option value='Dirty Piggie'>Dirty Piggie</option>
                     </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Cleanliness</p>                
                 </div>
@@ -764,10 +764,11 @@ useEffect(() => {
                     <div className='flex flex-col'> 
                         <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='smoker1' type='text' value={smoker1} onChange={(e) => setSmoker1(e.target.value)}>
                             <option value=''>{smoker1}</option>
-                            <option value='Vape'>Vape</option>
-                            <option value='Weed'>Weed</option>
-                            <option value='Tobacco'>Tobacco</option>
-                            <option value='None'>None</option>
+                            <option value='Vape Friendly'>Vape Friendly</option>
+                            <option value='Weed Friendly'>Weed Friendly</option>
+                            <option value='Tobacco Friendly'>Tobacco Friendly</option>
+                            <option value='All Friendly'>All Friendly</option>
+                            <option value='Non Smoker'>Non Smoker</option>
                         </select>
                         <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='smoker2' type='text' value={smoker2} onChange={(e) => setSmoker2(e.target.value)}>
                             <option value=''>{smoker1}</option>
@@ -782,6 +783,7 @@ useEffect(() => {
                         <option value=''>{drinker}</option>
                         <option value='Often'>Often</option>
                         <option value='Sometimes'>Sometimes</option>
+                        <option value='Never'>Never</option>
                     </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Drinking</p>                
                 </div>
