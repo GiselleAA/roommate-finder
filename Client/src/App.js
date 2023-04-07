@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 function App() {
   return (
   <div>
-    <div className="flex justify-center items-center relative">
-      <img className="h-full w-full object-fill" src="images/home-image.jpeg" alt=""/>
+    <div className="flex justify-center items-center relative bg-theme-purple">
+      <img className="object-fill" src="images/home-image.jpeg" alt=""/>
       <div className='absolute w-2/3 t-1/2 translate-y-1/2 translate-x-1/5 rounded-3xl bg-white focus:outline-none'>
         <CollegeSearch/>
       </div>
     </div>
-    <h1 className='text-center text-4xl pt-5 m-12'>Find Your New Roommate Today!</h1>
+    <h1 className='text-center text-4xl pt-5 m-12 font-bold'>Find Your New Roommate Today!</h1>
     <div className='grid grid-cols-5 gap-x-10 mb-64 px-30'>
       <div className='flex items-center justify-end text-3xl'>
         <button className='h-16 w-12 bg-gray-300'>&lt;</button>

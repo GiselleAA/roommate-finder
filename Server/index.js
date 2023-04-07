@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const cors  = require('cors');
 const mysql = require('mysql');
-const fs = require('fs');
+const mime = require('mime-types');
+const multer = require('multer');
 
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
@@ -17,6 +18,19 @@ const db = mysql.createConnection({
 
 module.exports = db;
 
+/* need file system smh :(
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop())
+    }
+});
+
+const upload = multer({ storage: storage });*/
+
 app.post('/nav', (req, res) => {
     const id = req.body.id;
     db.query("SELECT img1 FROM users WHERE id = ? ", id, (err, result) => {
@@ -27,8 +41,8 @@ app.post('/nav', (req, res) => {
         else {
             const imgData = result[0].img1;
             const base64String = Buffer.from(imgData).toString('base64');
-            res.set('Content-Type', 'image/png');
-            res.send(Buffer.from(base64String, 'base64'));
+            res.set('Content-Type');
+            res.send(Buffer.from(base64String));
         }
     });
 });
@@ -46,13 +60,13 @@ app.post('/signin', (req, res) => {
     })
 })
 
-app.post('/register', (req, res) => {
+app.post('/register', upload.single('img1'), (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const age = req.body.age;
     const email = req.body.email;
     const gender = req.body.gender;
-    const img1 = req.body.img1;
+    const img1 = req.body.filename;
     const uni = req.body.uni;
     const major = req.body.major;
     const interest1 = req.body.interest1;
@@ -62,6 +76,7 @@ app.post('/register', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const location = req.body.location;
+
 
     db.query("INSERT INTO users (firstName, lastName, gender, age, email, img1, uni, major, bio, username, password, location, interest1, interest2, interest3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [firstName, lastName, gender, age, email, img1, uni, major, bio, username, password, location, interest1, interest2, interest3], (err, result) => {
         if (err) {
