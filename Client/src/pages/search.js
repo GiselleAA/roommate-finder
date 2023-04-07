@@ -6,8 +6,8 @@ export default function Search() {
     const [requestMade, setRequestMade] = useState(false);
     useEffect(() => {
         if (!requestMade) {
-    axios.post('http://localhost:8080/search', {id: [1, 2, 3]}).then((response) => {
-        //create array of (n) id numbers
+    axios.post('http://localhost:8080/search', {}).then((response) => {
+
         setRequestMade(true);
     })
     .catch(error => {
@@ -103,6 +103,15 @@ export default function Search() {
                             <option value='Alone'>Studies Alone</option>
                             <option value='With Others'>Studies With Others</option>
                         </select>
+                    </div>
+                    <div className='flex w-full h-10 mb-2 bg-gray-500 items-center justify-center'>
+                        
+                    </div>
+                    <div className='flex w-full h-10 mb-2 bg-gray-500 items-center justify-center'>
+
+                    </div>
+                    <div className='flex w-full h-10 mb-2 bg-gray-500 items-center justify-center'>
+
                     </div>
                     <div className='flex w-full h-10 mb-2 bg-gray-500 items-center justify-center'>
 
