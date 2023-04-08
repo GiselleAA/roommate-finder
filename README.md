@@ -1,70 +1,101 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# RoomMe! Roommate Finder
+ITC 2023 Web Application Development Case
 
-## Available Scripts
+Team camel_case:
+Gabriel Soto,
+Giselle Avila,
+Francisco Ramirez,
+Shavleen Singh
 
-In the project directory, you can run:
+## Description
 
-### `npm start`
+RoomMe! is a platform made for college students in the CSU and UC system to find roommates. Users can create an account with some basic information and interests and start being recommended, and be recommended to, other users. Features of the current version include:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Instant recommendations 
+- Based on searched University and matching interests
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Profile page
+- See all information visible to other users
 
-### `npm test`
+### Profile settings
+- Manage all public information
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies
 
-### `npm run build`
+- NodeJS
+- ReactJS
+- ExpressJS
+- TailwindCSS
+- MySql
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Requirements
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- NodeJS
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation
 
-### `npm run eject`
+Open Folder in a Terminal and Write:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`C:\...\roommate-finder> cd Client`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`C:\...\roommate-finder\Client> npm install`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Installs node dependencies in Client Folder
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`C:\...\roommate-finder\Client> cd ..`
 
-## Learn More
+`C:\...\roommate-finder> cd Server`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`C:\...\roommate-finder\Server> npm install`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Installs node dependencies in Server Folder
 
-### Code Splitting
+`C:\...\roommate-finder\Server> cd ..`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+`C:\...\roommate-finder> npm install`
 
-### Analyzing the Bundle Size
+### Installs node dependencies in the root folder
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Finally run `npm start` from root folder to execute
 
-### Making a Progressive Web App
+## Design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Client-Server Model
+### Client:
+- Web Page Display
+- Routing
+- User Input Collection
+- HTTP Requests to Server
 
-### Advanced Configuration
+### Server:
+- User Input Processing
+- Building and Exceution of SQL queries
+- New User Creation
+- Retrieval of User Info
+- HTTP Responses to Client
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Database:
+- Single Users Table
+- User Info Held In One Row
 
-### Deployment
+## Known Issues
+Profile picture not displayed on navbar, profile, or settings\
+Implementation of filters incomplete\
+Navbar only updates after sign in when refreshing the page\
+Settings page not updating profile info\
+Responsiveness incomplete for medium and small screens
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Future Changes
+Encrypt sensitive user data\
+Save profile pictures in bucket instead of database\
+Create rooms table in database\
+Room management and verification for Hosts\
+Carousel of random users on home page\
+Different search results for Scouts and Hosts\
+Search for only Scouts or only Hosts\
+Improve color scheme\
+Improve font choice\
+Messenger and notifications\
+Personality Quiz\
+Preferences Quiz
