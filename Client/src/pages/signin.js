@@ -28,7 +28,7 @@ function Signin() {
         <form className='mx-auto px-5 pt-5 pb-3 rounded-2xl bg-theme-orange w-72 mt-36' onSubmit={submitHandler}>
         <div className='flex justify between mb-3'>
             <img src="images/palm-logo.png" width={75} height={75} style={{alignSelf: 'center'}} alt="logo"/>
-            <h3 className='pl-5 text-3xl text-black'>Roommate<br></br>Finder</h3>
+            <h3 className='text-4xl pt-6 text-black italic'>RoomMe!</h3>
         </div>
         <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='username' type='text' placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
         <input className='w-full h-9 p-1 mb-4 rounded-lg focus:outline-none' id='password' type='password' placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />

@@ -17,10 +17,9 @@ export default function Profile(){
     const [horoscope, setHoroscope] = useState('');
     const [religion, setReligion] = useState('');
     const [orientation, setOrientation] = useState('');
-    const [minAge, setMinAge] = useState('');
-    const [minBudget, setMinBudget] = useState('');
+    const [ageRange, setAgeRange] = useState('');
+    const [budget, setBudget] = useState('');
     const [stayLength, setStayLength] = useState('');
-    const [amenities, setAmenities] = useState('');
     const [pets, setPets] = useState('');
     const [guests, setGuests] = useState('');
     const [parties, setParties] = useState('');
@@ -28,10 +27,14 @@ export default function Profile(){
     const [homeTime, setHomeTime] = useState('');
     const [cleanliness, setCleanliness] = useState('');
     const [study1, setStudy1] = useState('');
+    const [study2, setStudy2] = useState('');
     const [smoker1, setSmoker1] = useState('');
+    const [smoker2, setSmoker2] = useState('');
     const [drinker, setDrinker] = useState('');
-    const [trait1, setTrait1] = useState('');
-    const [music1, setMusic1] = useState('');
+    const [interest1, setInterest1] = useState('');
+    const [interest2, setInterest2] = useState('');
+    const [interest3, setInterest3] = useState('');
+    const [moveWithin, setMoveWithin] = useState('');
     const [hostScout, setHostScout] = useState('');
     const [onCampus, setOnCampus] = useState('');
     const text = hostScout ? "Host" : "Scout";
@@ -53,10 +56,9 @@ export default function Profile(){
         setHoroscope(response.data.horoscope);
         setReligion(response.data.religion);
         setOrientation(response.data.orientation);
-        setMinAge(response.data.minAge);
-        setMinBudget(response.data.minBudget);
+        setAgeRange(response.data.ageRange);
+        setBudget(response.data.budget);
         setStayLength(response.data.stayLength);
-        setAmenities(response.data.amenities);
         setPets(response.data.pets);
         setGuests(response.data.guests);
         setParties(response.data.parties);
@@ -64,10 +66,14 @@ export default function Profile(){
         setHomeTime(response.data.homeTime);
         setCleanliness(response.data.cleanliness);
         setStudy1(response.data.study1);
+        setStudy2(response.data.study2);
         setSmoker1(response.data.smoker1);
+        setSmoker2(response.data.smoker2);
         setDrinker(response.data.drinker);
-        setTrait1(response.data.trait1);
-        setMusic1(response.data.music1);
+        setInterest1(response.data.interest1);
+        setInterest2(response.data.interest2);
+        setInterest3(response.data.interest3);
+        setMoveWithin(response.data.moveWithin);
         setHostScout(response.data.hostScout); //show rules and room info if true
         setOnCampus(response.data.onCampus);
         setRequestMade(true);
@@ -90,7 +96,7 @@ export default function Profile(){
             <div className="flex justify-center items-center h-full w-full my-6">
                 <div className="grid grid-cols-2 gap-x-10 gap-y-6">
                     <div className="grid rounded-2xl w-96 h-72 overflow-hidden bg-theme-orange">
-                        <img className='mx-auto -translate-y-6 w-fit h-fit object-cover object-center' src="images/girl.png" alt="" />
+                        <img className='mx-auto -translate-y-6 w-fit h-fit object-cover object-center' src="images/jesus.jpg" alt="" />
                     </div>
                     <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-orange">
                         <div className="flex flex-col">
@@ -109,49 +115,35 @@ export default function Profile(){
                             {horoscope && <p className="text-xl">Horoscope: {horoscope}</p>}
                             {religion && <p className="text-xl">Religion: {religion}</p>}
                             {orientation && <p className="text-xl">Orientation: {orientation}</p>}
-                            <p className="text-4xl pt-3">Traits</p>
-                            {age && gender && uni && <p className="text-xl">{age}, {age}, {age}</p>}
+                            {/*<p className="text-4xl pt-3">Traits</p>
+                            {age && gender && uni && <p className="text-xl">{age}, {age}, {age}</p>}*/}
                         </div>
                     </div>
                     <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-lpurple">
                         <div className="flex flex-col">
                             <p className="text-4xl pb-1">Bio</p>
                             {bio && <p className="text-xl">{bio}</p>}
+                            <p className="text-4xl mt-8 pb-1">Interests</p>
+                            {interest1 && <p className="text-xl">{interest1}, {interest2}, {interest3}</p>}
                         </div>
                     </div>
                     <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-lpurple">
                         <div className="flex flex-col">
-                            <p className="text-4xl pb-1">Interests</p>
-                            {age && gender && uni && <p className="text-xl">{age}, {age}, {age}</p>}
-                            <p className="text-4xl pt-9">Music</p>
-                            {age && gender && uni && <p className="text-xl">{age}, {age}, {age}</p>}
-                        </div>
-                    </div>
-                    <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-orange">
-                        <div className="flex flex-col">
-                            <p className="text-4xl pb-1">Lifestyle</p>
-                            {cleanliness && <p className="text-xl">Cleanliness: {cleanliness}</p>}
-                            {smoker1 && <p className="text-xl">Smoking: {smoker1}, {smoker1}</p>}
-                            {drinker && <p className="text-xl">Drinking: {drinker}</p>}
-                        </div>
-                    </div>
-                    <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-orange">
-                        <div className="flex flex-col">
                             <p className="text-4xl pb-1">Logistics</p>
-                            {minBudget && <p className="text-xl">Budget: ${minBudget}-{minBudget}</p>}
-                            {minAge && <p className="text-xl">Age Range:{minAge}-{minAge}</p>}
-                            {stayLength && <p className="text-xl">Move Within: {stayLength}</p>}
+                            {budget && <p className="text-xl">Budget: {budget}</p>}
+                            {ageRange && <p className="text-xl">Age Range: {ageRange}</p>}
+                            {moveWithin && <p className="text-xl">Move Within: {moveWithin}</p>}
                             {stayLength && <p className="text-xl">Length of Stay: {stayLength}</p>}
                         </div>
                     </div>
-                    <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-lpurple">
+                    <div className="grid rounded-2xl w-96 h-72 p-5 bg-theme-orange">
                         <div className="flex flex-col">
                             <p className="text-4xl pb-1">Lifestyle</p>
-                            {sleep && <p className="text-xl">Sleep: {cleanliness}</p>}
+                            {sleep && <p className="text-xl">Sleep: {sleep}</p>}
                             {homeTime && <p className="text-xl">At Home: {homeTime}</p>}
                             {cleanliness && <p className="text-xl">Cleanliness: {cleanliness}</p>}
-                            {study1 && <p className="text-xl">Study Environment: {study1}, {study1}</p>}
-                            {smoker1 && <p className="text-xl">Smoking: {smoker1}, {smoker1}</p>}
+                            {study1 && <p className="text-xl">Study Environment: {study1}, {study2}</p>}
+                            {smoker1 && <p className="text-xl">Smoking: {smoker1}, {smoker2}</p>}
                             {drinker && <p className="text-xl">Drinking: {drinker}</p>}
                         </div>
                     </div>

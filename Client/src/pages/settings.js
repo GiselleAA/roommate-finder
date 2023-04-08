@@ -18,9 +18,6 @@ export default function Settings() {
     const [horoscope, setHoroscope] = useState('');
     const [religion, setReligion] = useState('');
     const [orientation, setOrientation] = useState('');
-    const [interest1, setInterest1] = useState('');
-    const [interest2, setInterest2] = useState('');
-    const [interest3, setInterest3] = useState('');
     const [ageRange, setAgeRange] = useState('');
     const [budget, setBudget] = useState('');
     const [stayLength, setStayLength] = useState('');
@@ -44,6 +41,9 @@ export default function Settings() {
     const [music1, setMusic1] = useState('');
     const [hostScout, setHostScout] = useState('');
     const [onCampus, setOnCampus] = useState('');
+    const [interest1, setInterest1] = useState('');
+    const [interest2, setInterest2] = useState('');
+    const [interest3, setInterest3] = useState('');
     const [requestMade, setRequestMade] = useState(false);
 
 useEffect(() => {
@@ -216,7 +216,7 @@ useEffect(() => {
             </div>
             <div className='flex flex-row'>
                 <div className='block ml-96 w-60 overflow-hidden'>
-                    <img className='rounded-2xl object-cover object-center' src="images/girl.png" alt="" />
+                    <img className='rounded-2xl object-cover object-center' src="images/jesus.jpg" alt="" />
                 </div>
                 <div className='flex mt-10 flex-col'>
                     <p className='text-5xl ml-52 mb-10'>{firstName}</p>
@@ -585,7 +585,7 @@ useEffect(() => {
                     <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='ageRange' type='text' value={ageRange} onChange={(e) => setAgeRange(e.target.value)}>
                         <option value=''>{ageRange}</option>
                         <option value='18-22'>18-22</option> 
-                        <option value='18-22'>18-22</option> 
+                        <option value='23-29'>23-29</option> 
                         <option value='30+'>30+</option> 
                     </select>
                     <p className='p-3 w-30 h-12 bg-theme-gray text-white'>Age Range</p>                

@@ -39,10 +39,7 @@ app.post('/nav', (req, res) => {
         if (result.length === 0)
             res.json({ data: 'false' });
         else {
-            const imgData = result[0].img1;
-            const base64String = Buffer.from(imgData).toString('base64');
-            res.set('Content-Type');
-            res.send(Buffer.from(base64String));
+            res.send('this is broken');
         }
     });
 });
@@ -60,7 +57,7 @@ app.post('/signin', (req, res) => {
     })
 })
 
-app.post('/register', upload.single('img1'), (req, res) => {
+app.post('/register', (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const age = req.body.age;
@@ -90,7 +87,7 @@ app.post('/register', upload.single('img1'), (req, res) => {
 
 app.post('/profile', (req, res) => {
     const id = req.body.id;
-    db.query("SELECT * FROM users WHERE id = ? ", [id], (err, result) => {
+    db.query("SELECT * FROM users WHERE id = ? ", id, (err, result) => {
         if (err)
             console.log(err);
         else 
@@ -108,10 +105,9 @@ app.post('/profile', (req, res) => {
                 horoscope: result[0].horoscope,
                 religion: result[0].religion,
                 orientation: result[0].orientation,
-                minAge: result[0].minAge,
-                minBudget: result[0].minBudget,
+                ageRange: result[0].ageRange,
+                budget: result[0].budget,
                 stayLength: result[0].stayLength,
-                amenities: result[0].amenities,
                 pets: result[0].pets,
                 guests: result[0].guests,
                 parties: result[0].parties,
@@ -119,10 +115,14 @@ app.post('/profile', (req, res) => {
                 homeTime: result[0].homeTime,
                 cleanliness: result[0].cleanliness,
                 study1: result[0].study1,
+                study2: result[0].study2,
                 smoker1: result[0].smoker1,
+                smoker2: result[0].smoker2,
                 drinker: result[0].drinker,
-                trait1: result[0].trait1,
-                music1: result[0].minAge,
+                interest1: result[0].interest1,
+                interest2: result[0].interest2,
+                interest3: result[0].interest3,
+                moveWithin: result[0].moveWithin,
                 hostScout: result[0].hostScout,
                 onCampus: result[0].onCampus
             });
@@ -157,39 +157,47 @@ app.post('/settings', (req, res) => {
 })
 
 app.post('/search', (req, res) => {
+    const id = req.body.id;
     const uni = req.body.uni;
-    const major = req.body.major;
-    
-    const whereClause = Object.keys(req)
-        .map(key => `${key} = ?`)
-    .join(' AND ');
+    const interests = [req.body.interest1, req.body.interest2, req.body.interest3]
+    const filterStrings = req.body.filterStrings;
+    const filterValues = req.body.filterValues;
+    const and = filterStrings !== '' ? ' AND ' : '';
 
-    const values = Object.values(req);
-
-    db.query("SELECT id FROM users WHERE ${whereClause} ", values, (err, result) => {
+    db.query(`SELECT * FROM users WHERE (NOT id = ?) AND (uni = ?${and}${filterStrings} OR interest1 IN (?, ?, ?) OR interest2 in (?, ?, ?) OR interest3 in (?, ?, ?))`, [id, uni, ...filterValues, ...interests, ...interests, ...interests], (err, result) => {
         if (err)
             console.log(err);
         else if (result.length === 0)
             res.json({ data: 'false' });
         else {
-            const ids = result.map(row => row.id);
-            res.json({ data: ids });
+            const users = result.map((row, index) => ({
+                counter: index + 1,
+                firstName: row.firstName,
+                age: row.age,
+                uni: row.uni,
+                major: row.major,
+                bio: row.bio
+            }));
+            res.json({ data: users });
         }
     })
+})
 
-    const id = req.body.id;
-    db.query("SELECT * FROM users WHERE id = ? ", [id], (err, result) => {
+app.post('/interests', (req, res) => {
+    const id = req.body.id
+
+    db.query('SELECT * FROM users WHERE id = ?', id, (err, result) => {
         if (err)
             console.log(err);
-        else 
+        else if (result.length === 0)
+            res.json({ data: 'false' });
+        else {
             res.json({ 
-                firstName: result[0].firstName,
-                age: result[0].age,
-                img1: result[0].img1,
-                uni: result[0].uni,
-                major: result[0].major,
-                bio: result[0].bio
+                'interest1': result[0].interest1,
+                'interest2': result[0].interest2,
+                'interest3': result[0].interest3,
             });
+        }
     })
 })
 
