@@ -18,9 +18,6 @@ export default function Settings() {
     const [horoscope, setHoroscope] = useState('');
     const [religion, setReligion] = useState('');
     const [orientation, setOrientation] = useState('');
-    const [interest1, setInterest1] = useState('');
-    const [interest2, setInterest2] = useState('');
-    const [interest3, setInterest3] = useState('');
     const [ageRange, setAgeRange] = useState('');
     const [budget, setBudget] = useState('');
     const [stayLength, setStayLength] = useState('');
@@ -44,12 +41,14 @@ export default function Settings() {
     const [music1, setMusic1] = useState('');
     const [hostScout, setHostScout] = useState('');
     const [onCampus, setOnCampus] = useState('');
+    const [interest1, setInterest1] = useState('');
+    const [interest2, setInterest2] = useState('');
+    const [interest3, setInterest3] = useState('');
     const [requestMade, setRequestMade] = useState(false);
 
 useEffect(() => {
     if (!requestMade) {
     axios.post('http://localhost:8080/profile', {id: isAuth}).then((response) => {
-        console.log(JSON.stringify(response.data));
         setFirst(response.data.firstName);
         setAge(response.data.age);
         setGender(response.data.gender);
@@ -79,14 +78,15 @@ useEffect(() => {
         setHomeTime(response.data.homeTime);
         setCleanliness(response.data.cleanliness);
         setStudy1(response.data.study1);
-        setStudy2(response.data.study1);
+        setStudy2(response.data.study2);
         setSmoker1(response.data.smoker1);
-        setSmoker2(response.data.smoker1);
+        setSmoker2(response.data.smoker2);
         setDrinker(response.data.drinker);
         setTrait1(response.data.trait1);
         setMusic1(response.data.music1);
         setHostScout(response.data.hostScout); //show rules and room info if true
         setOnCampus(response.data.onCampus);
+        setMoveWithin(response.data.moveWithin);
         setRequestMade(true);
     })
     .catch(error => {
@@ -217,7 +217,7 @@ useEffect(() => {
             </div>
             <div className='flex flex-row'>
                 <div className='block ml-96 w-60 overflow-hidden'>
-                    <img className='rounded-2xl object-cover object-center' src="images/girl.png" alt="" />
+                    <img className='rounded-2xl object-cover object-center' src="images/jesus.jpg" alt="" />
                 </div>
                 <div className='flex mt-10 flex-col'>
                     <p className='text-5xl ml-52 mb-10'>{firstName}</p>
@@ -334,7 +334,7 @@ useEffect(() => {
                         <option value='Buddhism'>Buddhism</option>
                         <option value='Indigenous'>Indigenous</option>
                         <option value='Other'>Other</option>
-                        <option value='Irreligious '>Irreligious</option>
+                        <option value='Atheist '>Atheist</option>
                     </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Religion</p>
                 </div>
@@ -586,14 +586,14 @@ useEffect(() => {
                     <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='ageRange' type='text' value={ageRange} onChange={(e) => setAgeRange(e.target.value)}>
                         <option value=''>{ageRange}</option>
                         <option value='18-22'>18-22</option> 
-                        <option value='18-22'>18-22</option> 
+                        <option value='23-29'>23-29</option> 
                         <option value='30+'>30+</option> 
                     </select>
                     <p className='p-3 w-30 h-12 bg-theme-gray text-white'>Age Range</p>                
                 </div>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
                     <select className='px-3 py-2 w-[359px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='moveWithin' type='text' value={moveWithin} onChange={(e) => setMoveWithin(e.target.value)}>
-                        <option value=''>{stayLength}</option>
+                        <option value=''>{moveWithin}</option>
                         <option value='ASAP'>ASAP</option>
                         <option value='1 Month'>1 Month</option>
                         <option value='3 Months'>3 Months</option>
@@ -697,7 +697,7 @@ useEffect(() => {
                         <option value=''>{pets}</option>
                         <option value='Small Animals'>Small Animals</option>
                         <option value='Large Animals'>Large Animals</option>
-                        <option value='Not Allowed'>Not Allowed</option>
+                        <option value='No Pets'>No Pets</option>
                     </select>
                 </div>
                 <div className='flex justify-center flex-row text-center mr-40'>
@@ -740,9 +740,9 @@ useEffect(() => {
                 <div className='flex justify-center flex-row text-center  ml-[210px]'>
                     <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='cleanliness' type='text' value={cleanliness} onChange={(e) => setCleanliness(e.target.value)}>
                         <option value=''>{cleanliness}</option>
-                        <option value='High'>High</option>
-                        <option value='Medium'>Medium</option>
-                        <option value='Low'>Low</option>
+                        <option value='Clean Freak'>Clean Freak</option>
+                        <option value='Clean Enough'>Clean Enough</option>
+                        <option value='Dirty Piggie'>Dirty Piggie</option>
                     </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Cleanliness</p>                
                 </div>
@@ -754,7 +754,7 @@ useEffect(() => {
                             <option value='Noise'>Noise</option>
                         </select>
                         <select className='px-3 py-2 w-[367px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='study2' type='text' value={study2} onChange={(e) => setStudy2(e.target.value)}>
-                            <option value=''>{study1}</option>
+                            <option value=''>{study2}</option>
                             <option value='Alone'>Alone</option>
                             <option value='With Others'>With Others</option>
                         </select>
@@ -765,13 +765,14 @@ useEffect(() => {
                     <div className='flex flex-col'> 
                         <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='smoker1' type='text' value={smoker1} onChange={(e) => setSmoker1(e.target.value)}>
                             <option value=''>{smoker1}</option>
-                            <option value='Vape'>Vape</option>
-                            <option value='Weed'>Weed</option>
-                            <option value='Tobacco'>Tobacco</option>
-                            <option value='None'>None</option>
+                            <option value='Vape Friendly'>Vape Friendly</option>
+                            <option value='Weed Friendly'>Weed Friendly</option>
+                            <option value='Tobacco Friendly'>Tobacco Friendly</option>
+                            <option value='All Friendly'>All Friendly</option>
+                            <option value='Non Smoker'>Non Smoker</option>
                         </select>
                         <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='smoker2' type='text' value={smoker2} onChange={(e) => setSmoker2(e.target.value)}>
-                            <option value=''>{smoker1}</option>
+                            <option value=''>{smoker2}</option>
                             <option value='Often'>Often</option>
                             <option value='Sometimes'>Sometimes</option>
                         </select>
@@ -783,6 +784,7 @@ useEffect(() => {
                         <option value=''>{drinker}</option>
                         <option value='Often'>Often</option>
                         <option value='Sometimes'>Sometimes</option>
+                        <option value='Never'>Never</option>
                     </select>
                     <p className='p-3 w-24 h-12 bg-theme-gray text-white'>Drinking</p>                
                 </div>

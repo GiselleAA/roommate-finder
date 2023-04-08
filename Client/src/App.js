@@ -5,23 +5,17 @@ import { Link } from 'react-router-dom';
 function App() {
   return (
   <div>
-
-    <div className="flex justify-center items-center relative flex-col">
-     
-      <img className="h-full w-full object-fill" src="images/home-image.jpeg" alt=""/>
-
+    <div className="flex justify-center items-center relative bg-theme-purple">
+      <img className="object-fill" src="images/home-image.jpeg" alt=""/>
       <div className='bg-white w-2/4 h-20 absolute -translate-y-20 rounded-xl flex items-center justify-center'>
            <p className='text-5xl font-bold text-black'> Find Your Roommate Today</p>
       </div>
-
       <div className='absolute w-2/3 t-1/2 translate-y-1/2 translate-x-1/5 rounded-3xl bg-white focus:outline-none'>
-       
         <CollegeSearch/>
       </div>
     </div>
-    <h1 className='text-center text-4xl pt-5 m-12'> Helping CSU and UC students find their perfect roommate.</h1>
-    <div className='grid grid-cols-5 gap-x-10 mb-50 px-30'>
-
+    <h1 className='text-center text-4xl pt-5 m-12 font-bold'> Helping CSU and UC students find their perfect roommate.</h1>
+    <div className='grid grid-cols-5 gap-x-10 mb-64 px-30'>
       <div className='flex items-center justify-end text-3xl'>
         <button className='h-16 w-12 bg-gray-300'>&lt;</button>
       </div>
