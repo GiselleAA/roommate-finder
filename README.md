@@ -1,6 +1,6 @@
 
 # RoomMe! Roommate Finder
-ITC 2023 Web Application Development Case
+### ITC 2023 Web Application Development Case
 
 Team camel_case:
 Gabriel Soto,
