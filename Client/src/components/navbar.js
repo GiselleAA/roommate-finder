@@ -5,6 +5,7 @@ import React from 'react';
 
 export default function Navbar() {
     const [isAuth, setIsAuth]  = useState(() => window.localStorage.getItem('isAuth') || '');
+    const college = window.sessionStorage.getItem('college');
     const [img1, setImg1] = useState('');
 
     useEffect(() => {
@@ -38,7 +39,7 @@ export default function Navbar() {
         <nav className='flex justify-between w-full h-16 py-2 text-black px-28'>
             <ul className='flex justify-start'>
                 <li>
-                    <Link to='/'><img src="images/palm-logo.png" width={50} height={50} alt="logo" /></Link>
+                    <Link to={college ? '/search' : '/'}><img src="images/palm-logo.png" width={50} height={50} alt="logo" /></Link>
                 </li>
                 <li className='text-3xl pt-2 italic'>RoomMe!</li>
             </ul>

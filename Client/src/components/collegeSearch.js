@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CollegeSearch() {
 const navigate = useNavigate();
+const isAuth = window.localStorage.getItem('isAuth');
 const colleges = [ 
     { id: 0, name: 'California State University, Bakersfield' },
     { id: 1, name: 'California State University Channel Islands' },
@@ -49,7 +50,10 @@ const colleges = [
 
     const handleOnSelect = (item) => {
     window.sessionStorage.setItem('college', item.name);
-    navigate('/search');
+    if (isAuth)
+        navigate('/search');
+    else
+        navigate('/signin');
 }
 
     const handleOnFocus = () => {

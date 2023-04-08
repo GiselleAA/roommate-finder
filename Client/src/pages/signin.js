@@ -18,7 +18,7 @@ function Signin() {
         setUsername('');
         setPassword('');
         window.localStorage.setItem('isAuth', data);
-        navigate('/search');
+        navigate('/');
     }
     })
 }

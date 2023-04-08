@@ -78,14 +78,15 @@ useEffect(() => {
         setHomeTime(response.data.homeTime);
         setCleanliness(response.data.cleanliness);
         setStudy1(response.data.study1);
-        setStudy2(response.data.study1);
+        setStudy2(response.data.study2);
         setSmoker1(response.data.smoker1);
-        setSmoker2(response.data.smoker1);
+        setSmoker2(response.data.smoker2);
         setDrinker(response.data.drinker);
         setTrait1(response.data.trait1);
         setMusic1(response.data.music1);
         setHostScout(response.data.hostScout); //show rules and room info if true
         setOnCampus(response.data.onCampus);
+        setMoveWithin(response.data.moveWithin);
         setRequestMade(true);
     })
     .catch(error => {
@@ -592,7 +593,7 @@ useEffect(() => {
                 </div>
                 <div className='flex justify-center flex-row text-center ml-[210px]'>
                     <select className='px-3 py-2 w-[359px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='moveWithin' type='text' value={moveWithin} onChange={(e) => setMoveWithin(e.target.value)}>
-                        <option value=''>{stayLength}</option>
+                        <option value=''>{moveWithin}</option>
                         <option value='ASAP'>ASAP</option>
                         <option value='1 Month'>1 Month</option>
                         <option value='3 Months'>3 Months</option>
@@ -753,7 +754,7 @@ useEffect(() => {
                             <option value='Noise'>Noise</option>
                         </select>
                         <select className='px-3 py-2 w-[367px] h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='study2' type='text' value={study2} onChange={(e) => setStudy2(e.target.value)}>
-                            <option value=''>{study1}</option>
+                            <option value=''>{study2}</option>
                             <option value='Alone'>Alone</option>
                             <option value='With Others'>With Others</option>
                         </select>
@@ -771,7 +772,7 @@ useEffect(() => {
                             <option value='Non Smoker'>Non Smoker</option>
                         </select>
                         <select className='px-3 py-2 w-96 h-12 p-1 mb-3 focus:outline-none bg-theme-lpurple' id='smoker2' type='text' value={smoker2} onChange={(e) => setSmoker2(e.target.value)}>
-                            <option value=''>{smoker1}</option>
+                            <option value=''>{smoker2}</option>
                             <option value='Often'>Often</option>
                             <option value='Sometimes'>Sometimes</option>
                         </select>
