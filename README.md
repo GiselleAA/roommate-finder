@@ -27,7 +27,7 @@ RoomMe! is a platform made for college students in the CSU and UC system to find
 - ReactJS
 - ExpressJS
 - TailwindCSS
-- MySql
+- MySQL
 
 ## Requirements
 
