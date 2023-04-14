@@ -11,7 +11,7 @@ function App() {
       <img className="h-full w-full object-fill" src="images/home-image.jpeg" alt=""/>
 
       <div className='bg-white w-2/4 h-20 absolute -translate-y-20 rounded-xl flex items-center justify-center'>
-           <p className='text-5xl font-bold text-black'> Find Your Roommate Today</p>
+           <p className='text-center text-4xl font-bold text-black md:text-3xl sm:text-2xl'> Find Your Roommate Today</p>
       </div>
 
       <div className='absolute w-2/3 t-1/2 translate-y-1/2 translate-x-1/5 rounded-3xl bg-white focus:outline-none'>
@@ -19,7 +19,7 @@ function App() {
         <CollegeSearch/>
       </div>
     </div>
-    <h1 className='text-center text-4xl pt-5 m-12'> Helping CSU and UC students find their perfect roommate.</h1>
+    <h1 className='text-center font-semibold text-4xl pt-5 m-12 md:text-3xl sm:text-2xl'> Helping CSU and UC students find their perfect roommate.</h1>
     <div className='grid grid-cols-5 gap-x-10 mb-50 px-30'>
 
       <div className='flex items-center justify-end text-3xl'>
@@ -66,8 +66,6 @@ function App() {
       </div>
     </div>
 
-    <hr class="my-12 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
-
     <div className='ml-20 grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-x-10 mb-32 px-30 text-center mr-20'>
 
       <div className='flex flex-col items-center h-100 w-100 overflow-hidden'>
@@ -94,7 +92,6 @@ function App() {
 </div>
     </div>
 
-    <hr class="my-12 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
 
     <p className='text-center ml-20 mt-5 font-semibold text-3xl md:text-2xl sm:text-2xl mb-10 mr-20'> Finding your perfect roommate is important!</p>
 
@@ -103,7 +100,7 @@ function App() {
     
        <img className='justify-center rounded-xl drop-shadow-xl h-64 w-100 mb-10' src="images/happy_roommate.jpg" alt="" />
 
-       <p className= 'flex justify-center b-5 mb-4 md:text-sm sm:text-xs'> We know finding a good roommate is important for college life. A roommate can have a 
+       <p className= 'flex justify-center text-center b-5 mb-4 md:text-sm sm:text-xs'> We know finding a good roommate is important for college life. A roommate can have a 
        significant impact on your academic and personal success. We are here to provide the chance to live with a compatible roommate who can promote a healthy and supportive 
        living environment, allowing individuals to focus on their studies and engage in extracurricular activities. </p>
     </div>
@@ -117,8 +114,8 @@ function App() {
     </div>
 
     <footer class="bg-gray-800 text-gray-300 py-20">
-      <div class="container mx-auto text-center md:text-base sm:text-sm">
-         <p> 2023 ITC: Gabriel, Francisco, Giselle, and Shavleen Website. All rights reserved.</p>
+      <div class="container mx-auto text-center md:text-base sm:text-xs">
+         <p> 2023 ITC - Team camel_case: Gabriel Soto, Giselle Avila, Francisco Ramirez, Shavleen Singh Website. All rights reserved.</p>
      </div>
     </footer>
 
